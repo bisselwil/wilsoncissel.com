@@ -1,401 +1,346 @@
 <!DOCTYPE html>
-<!-- saved from url=(0029)https://www.wilsoncissel.com/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wilson Cissel's Projects</title>
+  <meta content="wilsoncissel.com" property="og:title">
+  <meta content="The personal website for Wilson Cissel/Mixer Dude's project." property="og:description">
+  <meta content="https://embed.com/this-is-the-site-url" property="og:url">
+  <meta content="https://embed.com/embedimage.png" property="og:image">
+  <meta content="#ADD8E6" data-react-helmet="true" name="theme-color">
+  <style>
+    body {
+      background-color: #F5F5F5;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
 
-    <link rel="stylesheet" href="./Wilson Cissel&#39;s Projects_files/all.min.css">
-  <script src="./Wilson Cissel&#39;s Projects_files/cb=gapi.loaded_2" async=""></script><script src="./Wilson Cissel&#39;s Projects_files/cb=gapi.loaded_1" async=""></script><script src="./Wilson Cissel&#39;s Projects_files/cb=gapi.loaded_0" async=""></script><script src="./Wilson Cissel&#39;s Projects_files/platform.js.download" gapi_processed="true"></script>
-    <title>Wilson Cissel's Projects</title>
-     <meta content="wilsoncissel.com" property="og:title">
-    <meta content="The personal website for Wilson Cissel/Mixer Dude&#39;s project." property="og:description">
-    <meta content="https://embed.com/this-is-the-site-url" property="og:url">
-    <meta content="https://embed.com/embedimage.png" property="og:image">
-    <meta content="#ADD8E6" data-react-helmet="true" name="theme-color">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    #header {
+      background-color: #3d3d3d;
+      color: #FFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    }
 
+    #logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-    
+    #menuToggle {
+      display: none; /* Hidden by default */
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #FFF;
+      cursor: pointer;
+    }
 
-   <style>
+    #nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 40%;
+    }
 
+    #nav a {
+      color: #FFF;
+      text-decoration: none;
+      margin: 0 10px;
+      padding: 5px;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
 
+    #nav a:hover {
+      background-color: #FFF;
+      color: #333;
+    }
 
+    section {
+      background-color: #FFF;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 5px;
+    }
 
+    h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 0;
+    }
 
-.menu {
-  height: 100%;
-  width: 0; 
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px; 
-}
+    p {
+      margin: 10px 0;
+    }
 
-.menu a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
+    audio {
+      margin: 20px 0;
+    }
 
-.menu .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
+    button {
+      background-color: #0072f5;
+      color: #ffffff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
 
-#main {
-  transition: margin-right .5s;
-  padding: 16px;
-}
+    button:hover {
+      background-color: #f0f0f0;
+      color: #333;
+    }
 
-@media screen and (max-height: 450px) {
-  .menu {padding-top: 15px;}
-  .menu a {font-size: 18px;}
-}
+    .disco:hover {
+      background-color: black !important;
+      color: white !important;
+    }
 
+    .dis:hover {
+      background-color: #7289d9 !important;
+    }
 
-  body {
-    background-color: #F5F5F5;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-  }
+    .yt:hover {
+      background-color: #FF0000 !important;
+      color: white !important;
+    }
 
-  #header {
-    background-color: #3d3d3d;
-    color: #FFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
+    .floating-icon-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      pointer-events: all;
+      transition: opacity 0.3s ease;
+    }
 
-  #logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
+    .floating-icon {
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-  #nav {
-    display: flex;
-    justify-content: flex-end; /* changed from space-between */
-    align-items: center;
-    width: 40%;
-  }
+    .floating-icon img {
+      width: 100%;
+      height: 100%;
+    }
 
-  #nav a {
-    color: #FFF;
-    text-decoration: none;
-    margin: 0 10px;
-    padding: 5px;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-  }
+    .floating-icon.dark-mode {
+      transform: rotate(180deg);
+    }
 
-  #nav a:hover {
-    background-color: #FFF;
-    color: #333;
-  }
+    .floating-icon:hover {
+      background-color: #818181;
+    }
 
-  section {
-    background-color: #FFF;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 5px;
-  }
+    #dark-mode-switch {
+      position: fixed;
+      bottom: 20px;
+      right: 60px;
+      cursor: pointer;
+      font-size: 24px;
+      z-index: 1000;
+    }
 
-  h1 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-top: 0;
-  }
+    body.dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
 
-  p {
-    margin: 10px 0;
-  }
+    .dark-mode section {
+      background-color: #363636 !important;
+    }
 
-  audio {
-    margin: 20px 0;
-  }
+    /* Mobile-specific styles */
+    @media screen and (max-width: 768px) {
+      #menuToggle {
+        display: block; /* Show hamburger menu */
+      }
 
-  button {
-    background-color: #0072f5;
-    color: #ffffff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
+      #nav {
+        display: none; /* Hide nav by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        background-color: #3d3d3d;
+        position: absolute;
+        top: 60px;
+        right: 0;
+      }
 
-  disbutton { background-color: gray;
-  color: darkgray;}
+      #nav a {
+        margin: 10px 0;
+        padding: 10px;
+        text-align: center;
+      }
 
-  button:hover {
-    background-color: #f0f0f0;
-    color: #333;
-  }
+      #nav.active {
+        display: flex; /* Show nav when active */
+      }
 
-.disco:hover {background-color: black!important;
+      section {
+        margin: 10px 5px;
+        padding: 10px;
+      }
 
-color: white !important;}
+      h1 {
+        font-size: 24px;
+      }
 
+      p {
+        font-size: 14px;
+      }
 
-  .dis:hover {background-color: #7289d9 !important;}
+      button {
+        width: 100%; /* Full-width buttons on mobile */
+        margin: 5px 0;
+      }
 
-  img {
-    max-width: 100%;
-    height: auto;
-  }
+      audio {
+        width: 100%; /* Full-width audio player on mobile */
+      }
 
-  .yt:hover {background-color: #FF0000 !important;
-  color: white !important;}
+      .floating-icon-container {
+        bottom: 10px;
+        right: 10px;
+      }
 
+      .floating-icon {
+        width: 40px;
+        height: 40px;
+      }
 
-
-
-  .floating-icon-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        
-
-        .floating-icon {
-            width: 50px;
-            height: 50px;
-            background-color: transparent;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .floating-icon img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .floating-icon.dark-mode {
-            transform: rotate(180deg);
-        }
-
-
-.floating-icon:hover {background-color: #818181;}
-
-        #dark-mode-switch {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 1000;
-  
-}
-
-body.dark-mode {
-  background-color: #222;
-  color: #fff;
-}
-
-.dark-mode * {
-  box-shadow: none !important;
-  text-shadow: none !important;
-  
-}
-.dark-mode section {
-background-color: #363636 !important;
-}
-
-
-
-
-
-/* You may need to add more specific styles to handle images, links, etc. */
-</style>
-  <script charset="utf-8" src="chrome-extension://oakbcaafbicdddpdlhbchhpblmhefngh/dist/ruffle.js?id=31098317666"></script><style>.gc-bubbleDefault{background-color:transparent!important;text-align:left;padding:0!important;margin:0!important;border:0!important;table-layout:auto!important}.gc-reset{background-color:transparent!important;border:0!important;padding:0!important;margin:0!important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc!important}.pls-contentLeft,.pls-topTail,.pls-vertShimLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif)!important}.pls-topTail{background-repeat:repeat-x!important;background-position:bottom!important}.pls-vertShim{background-color:#fff!important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5!important}.pls-vertShimLeft{background-repeat:repeat-y!important;background-position:100%!important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2!important}.pls-contentWrap{background-color:#fff!important;position:relative!important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:100%;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png)!important;background-repeat:repeat-y!important;vertical-align:top}.pls-dropBL,.pls-dropTR .pls-dropBR,.pls-tailleft,.pls-vert,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png)!important;background-repeat:repeat-x!important;width:100%;vertical-align:top}.pls-topLeft{background:inherit!important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit!important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit!important;text-align:right}.pls-bottomRight{background:inherit!important;text-align:left;vertical-align:top}.pls-tailbottom,.pls-tailleft,.pls-tailright,.pls-tailtop{display:none;position:relative}.pls-dropBL,.pls-dropBR,.pls-dropTR,.pls-tailbottom,.pls-tailleft,.pls-tailright,.pls-tailtop{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png)!important;background-repeat:no-repeat}.tbl-grey .pls-dropBL,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropTR,.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailleft,.tbl-grey .pls-tailright,.tbl-grey .pls-tailtop{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png)!important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-tailbottom,.pls-topLeft img,.pls-topRight img{vertical-align:bottom}.bubbleDropTR,.pls-bottomLeft,.pls-bottomLeft img,.pls-dropBottom img,.pls-dropBottomL img,.pls-dropBottomR img{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacerbottom,.pls-spacerleft,.pls-spacerright,.pls-spacertop{position:static!important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0}</style></head>
-  <body data-new-gr-c-s-check-loaded="14.1147.0" data-gr-ext-installed="" cz-shortcut-listen="true">
-    <div id="header">
-      <img id="logo" src="pic.png" alt="Logo">
-      <nav id="nav">
-        <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
-        
-        <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a>
-        <a href="http://mixerdude.com/" target="_blank" class="">mixerdude.com
-        </a>
-
-        
-      </nav>
-    </div>
-    
-
-
-    <div class="floating-icon-container">
-      <!-- Floating Moon Icon -->
-      <button class="floating-icon" id="moonIcon" onclick="toggleTheme(&#39;dark&#39;)">
-          <img src="./Wilson Cissel&#39;s Projects_files/moon.png" alt="Moon Icon">
-      </button>
-
-      <!-- Floating Sun Icon -->
-      <button class="floating-icon dark-mode" id="sunIcon" onclick="toggleTheme(&#39;light&#39;)">
-          <img src="./Wilson Cissel&#39;s Projects_files/sun.png" alt="Sun Icon">
-      </button>
+      #dark-mode-switch {
+        bottom: 10px;
+        right: 50px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <img id="logo" src="https://wilsoncissel.com/pic.png" alt="Logo">
+    <button id="menuToggle">&#9776;</button>
+    <nav id="nav">
+      <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
+      <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a>
+      <a href="http://mixerdude.com/" target="_blank" class="">mixerdude.com</a>
+    </nav>
   </div>
 
+  
 
-    <section id="projects">
-      <h1>Projects</h1>
-      <p>Welcome to my personal website, where I showcase my projects and programs. </p>
-      <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
-      
-      <div id="___ytsubscribe_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 85px; height: 24px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 85px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1703570689654" name="I0_1703570689654" src="./Wilson Cissel&#39;s Projects_files/subscribe_embed.html" data-ruffle-polyfilled="" data-gapiattached="true"></iframe></div>
-    </section>
-    
-    
-    
-    <section id="discord">
-    
+  <section id="projects">
+    <h1>Projects</h1>
+    <p>Welcome to my personal website, where I showcase my projects and programs.</p>
+    <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
+  </section>
+
+  <section id="discord">
     <h1>Discord Server</h1>
     <p>I have a Discord Server.</p>
     <a href="https://discord.gg/QMYfmSkchY" target="_blank">
       <button class="disco" style="background-color: #7289d9;">Join my Discord Server</button>
-      </a>
-    
-    
-    
-    </section>
-    <section id="music">
-      <h1>Music</h1>
-      <p>I made some Music</p>
-      <audio controls="" controlslist="nodownload">
-
-  <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
-Your browser does not support direct listening.
-</audio>
-
-  <audio controls="" controlslist="nodownload">
-
-  <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
-Your browser does not support direct listening.
-</audio>
-
-<audio controls="" controlslist="nodownload">
-<source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
-Your browser does not support direct Listening.
-</audio>
-  
-  <audio controls="" controlslist="nodownload">
-
-  <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
-Your browser does not support direct listening.
-</audio>
-    </section>
-    
-    <section id="jokes">
-      <h1>Jokes</h1>
-      <p>This is my brand new jokes website. Check it out </p>
-      <a href="https://joke.wilsoncissel.com/" target="_blank">
-  <button>Go</button>
-</a>
-      
-    </section>
-    
-    <section id="QR">
-      <h1>QR Code Maker for Windows</h1>
-      <p>This is a QR Code Maker i made for Windows</p>
-      <a href="https://download.wilsoncissel.com/qr.html" target="_blank">
-      <button>Download QR Code Generator</button>
-</a>
-      
-      
-      
-      
-      
-     
-    </section>
-    
-
-
+    </a>
   </section>
-    
+
+  <section id="music">
+    <h1>Music</h1>
+    <p>I made some Music</p>
+    <audio controls controlsList="nodownload">
+      <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
+      Your browser does not support direct listening.
+    </audio>
+    <audio controls controlsList="nodownload">
+      <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
+      Your browser does not support direct listening.
+    </audio>
+    <audio controls controlsList="nodownload">
+      <source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
+      Your browser does not support direct Listening.
+    </audio>
+    <audio controls controlsList="nodownload">
+      <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
+      Your browser does not support direct listening.
+    </audio>
+  </section>
+
+  <section id="jokes">
+    <h1>Jokes</h1>
+    <p>This is my brand new jokes website. Check it out</p>
+    <a href="https://joke.wilsoncissel.com/" target="_blank">
+      <button>Go</button>
+    </a>
+  </section>
+
+  <section id="QR">
+    <h1>QR Code Maker for Windows</h1>
+    <p>This is a QR Code Maker I made for Windows</p>
+    <a href="https://download.wilsoncissel.com/qr.html" target="_blank">
+      <button>Download QR Code Generator</button>
+    </a>
+  </section>
+
   <section id="Wemo">
     <h1>Local WeMo Controller for Windows</h1>
-    <p>This is a WeMo Smart device controller where you can control any local WeMo device with it's IP Address.</p>
+    <p>This is a WeMo Smart device controller where you can control any local WeMo device with its IP Address.</p>
     <a href="https://download.wilsoncissel.com/wemo.html" target="_blank">
-    <button>Download WeMo Device Controller</button>
+      <button>Download WeMo Device Controller</button>
     </a>
-    
-    
-    
-    
-    
-   
   </section>
 
+  <section id="os">
+    <h1>Wilo OS</h1>
+    <p>This is my Google slide OS: Wilo OS 8</p>
+    <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank">
+      <button>Open</button>
+    </a>
+  </section>
 
+  <div id="dark-mode-switch" onclick="toggleDarkMode()">
+    <i id="mode-icon" class="fas fa-moon"></i>
+  </div>
 
-
-    <section id="os">
-      <h1>Wilo OS</h1>
-      <p>This is my Google slide OS: Wilo OS 8</p>
-      <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank">
-  <button>Open</button>
-</a>
-    </section>
-    
-    <script>
-      function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        var modeIcon = document.getElementById('mode-icon');
-        if (document.body.classList.contains('dark-mode')) {
-          modeIcon.classList.remove('fa-moon');
-          modeIcon.classList.add('fa-sun');
-        } else {
-          modeIcon.classList.remove('fa-sun');
-          modeIcon.classList.add('fa-moon');
-        }
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      var modeIcon = document.getElementById('mode-icon');
+      if (document.body.classList.contains('dark-mode')) {
+        modeIcon.classList.remove('fa-moon');
+        modeIcon.classList.add('fa-sun');
+      } else {
+        modeIcon.classList.remove('fa-sun');
+        modeIcon.classList.add('fa-moon');
       }
-      </script>
+    }
 
-<div id="dark-mode-switch" onclick="toggleDarkMode()">
-  <i id="mode-icon" class="fas fa-moon"></i>
-</div>
-  
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      var nav = document.getElementById('nav');
+      nav.classList.toggle('active');
+    });
 
-<iframe name="oauth2relay722695633" id="oauth2relay722695633" src="./Wilson Cissel&#39;s Projects_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div style="display: block; visibility: hidden; position: absolute; width: 106px; left: -1000px; top: -1000px;"><table cellpadding="0" cellspacing="0" dir="ltr" style="width:106px;" frame="void" rules="none" class=" gc-bubbleDefault pls-container"><tbody><tr class="gc-reset"><td class="pls-topLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/border_3.gif"></td><td class="pls-topTail gc-reset"><img class="pls-tailbottom gc-reset" style="width:15px !important; height:9px !important; max-width: 15px !important; max-height: 9px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"><img class="pls-spacerbottom gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td><td class="pls-topRight gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/border_3.gif"></td></tr><tr class="gc-reset"><td class="pls-vertShimLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td><td class="pls-vertShim gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td><td class="pls-vertShimRight gc-reset"><img class="pls-dropTR gc-reset" style="width:5px !important; height:4px !important; max-width: 5px !important; max-height: 4px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-contentLeft gc-reset"><img class="pls-tailright gc-reset" style="width:9px !important; height:15px !important; max-width: 9px !important; max-height: 15px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"><img class="pls-spacerright gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td><td class="pls-contentWrap gc-reset"><div class="goog-bubble-content gc-reset"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="margin:0px;position:absolute;z-index:1;border-style:none;outline:none;width:100px;" tabindex="0" vspace="0" width="100%" id="I0_1703570690475" name="I0_1703570690475" src="./Wilson Cissel&#39;s Projects_files/subscribe_embed(1).html"></iframe></div></td><td class="pls-dropRight gc-reset"><img class="pls-tailleft gc-reset" style="width:12px !important; height:19px !important; max-width: 12px !important; max-height: 19px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"><img class="pls-spacerleft gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-bottomLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/border_3.gif"></td><td class="gc-reset"><table cellpadding="0" cellspacing="0" style="width:100%" class="gc-reset"><tbody><tr class="gc-reset"><td class="pls-vert gc-reset"><img class="pls-dropBL gc-reset" style="width:4px !important; height:5px !important; max-width: 4px !important; max-height: 5px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td><td class="pls-dropBottom gc-reset"><img class="pls-tailtop gc-reset" style="width:19px !important; height:13px !important; max-width: 19px !important; max-height: 13px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"><img class="pls-spacertop gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td></tr></tbody></table></td><td class="pls-vert gc-reset"><img class="pls-dropBR gc-reset" style="width:5px !important; height:5px !important; max-width: 5px !important; max-height: 5px !important;" src="./Wilson Cissel&#39;s Projects_files/spacer.gif"></td></tr></tbody></table></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
-      div.grammarly-desktop-integration {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select:none;
-        user-select:none;
+    function toggleTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
       }
-
-      div.grammarly-desktop-integration:before {
-        content: attr(data-content);
-      }
-    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
+    }
+  </script>
+</body>
+</html>

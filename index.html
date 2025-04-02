@@ -1,346 +1,806 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wilson Cissel's Projects</title>
-  <meta content="wilsoncissel.com" property="og:title">
-  <meta content="The personal website for Wilson Cissel/Mixer Dude's project." property="og:description">
-  <meta content="https://embed.com/this-is-the-site-url" property="og:url">
-  <meta content="https://embed.com/embedimage.png" property="og:image">
-  <meta content="#ADD8E6" data-react-helmet="true" name="theme-color">
-  <style>
-    body {
-      background-color: #F5F5F5;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilson Cissel's Projects</title>
+    <meta content="wilsoncissel.com" property="og:title">
+    <meta content="The personal website for Wilson Cissel/Mixer Dude's projects." property="og:description">
+    <meta content="https://wilsoncissel.com" property="og:url">
+    <meta content="https://wilsoncissel.com/pic.png" property="og:image">
+    <meta content="#F5F5F5" data-react-helmet="true" name="theme-color" id="theme-color-meta"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- Base & Theme Variables --- */
+        :root {
+            /* Light Theme Variables */
+            --bg-color: #F5F5F5;
+            --section-bg-color: #FFFFFF;
+            --text-color: #333333;
+            --header-bg-color: #3d3d3d;
+            --header-text-color: #FFFFFF;
+            --link-color: #0072f5;
+            --link-hover-bg: #FFFFFF;
+            --link-hover-text: #333333;
+            --button-bg-color: #0072f5;
+            --button-text-color: #FFFFFF; /* White text for general buttons */
+            --button-hover-bg: #005bb5;
+            --button-hover-text: #FFFFFF;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --text-color-rgb: 51, 51, 51; /* RGB version for rgba */
+        }
 
-    #header {
-      background-color: #3d3d3d;
-      color: #FFF;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    #logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
+        body.dark-mode {
+            /* Dark Theme Variables */
+            --bg-color: #1a1a1a;
+            --section-bg-color: #2c2c2c;
+            --text-color: #e0e0e0; /* Light text for dark mode */
+            --header-bg-color: #252525;
+            --header-text-color: #e0e0e0;
+            --link-color: #3498db;
+            --link-hover-bg: #444444;
+            --link-hover-text: #ffffff;
+            --button-bg-color: #3498db;
+            --button-text-color: #FFFFFF; /* White text for general buttons */
+            --button-hover-bg: #2980b9;
+            --button-hover-text: #FFFFFF;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            --text-color-rgb: 224, 224, 224; /* RGB version for rgba */
+        }
 
-    #menuToggle {
-      display: none; /* Hidden by default */
-      font-size: 24px;
-      background: none;
-      border: none;
-      color: #FFF;
-      cursor: pointer;
-    }
+        /* --- Header Styles --- */
+        #header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+             transition: background-color 0.3s ease;
+        }
 
-    #nav {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 40%;
-    }
+        #logo img {
+           height: 40px;
+           width: auto;
+           display: block;
+        }
 
-    #nav a {
-      color: #FFF;
-      text-decoration: none;
-      margin: 0 10px;
-      padding: 5px;
-      border-radius: 5px;
-      transition: all 0.3s ease-in-out;
-    }
+        #menuToggle {
+            display: none;
+            font-size: 28px;
+            background: none;
+            border: none;
+            color: var(--header-text-color);
+            cursor: pointer;
+        }
 
-    #nav a:hover {
-      background-color: #FFF;
-      color: #333;
-    }
+        #nav {
+            display: flex;
+            gap: 15px;
+        }
 
-    section {
-      background-color: #FFF;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 5px;
-    }
+        #nav a {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 500;
+        }
 
-    h1 {
-      font-size: 32px;
-      font-weight: bold;
-      margin-top: 0;
-    }
+        #nav a:hover, #nav a.active {
+            background-color: var(--link-hover-bg);
+            color: var(--link-hover-text);
+        }
+         #nav a.dis:hover { background-color: #5865F2; color: white; }
+         #nav a.yt:hover { background-color: #FF0000; color: white; }
 
-    p {
-      margin: 10px 0;
-    }
+        /* --- Main Content & Sections --- */
+        main {
+             padding: 20px;
+             max-width: 1000px;
+             margin: 20px auto;
+        }
 
-    audio {
-      margin: 20px 0;
-    }
+        section {
+            background-color: var(--section-bg-color);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease;
+            overflow: hidden;
+        }
 
-    button {
-      background-color: #0072f5;
-      color: #ffffff;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
+        h1 {
+            font-size: 2em;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--link-color);
+            padding-bottom: 10px;
+            color: var(--text-color);
+        }
 
-    button:hover {
-      background-color: #f0f0f0;
-      color: #333;
-    }
+        h2 {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
 
-    .disco:hover {
-      background-color: black !important;
-      color: white !important;
-    }
+        p {
+            margin: 0 0 15px 0;
+            color: var(--text-color);
+        }
+         p a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
 
-    .dis:hover {
-      background-color: #7289d9 !important;
-    }
+        /* --- General Button & Link Button Styles --- */
+        /* This targets general buttons, NOT the custom audio player ones specifically */
+        button, .button-link {
+            display: inline-block;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color) !important; /* Sets general button text color (white) */
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+            margin-top: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
-    .yt:hover {
-      background-color: #FF0000 !important;
-      color: white !important;
-    }
+        button:hover, .button-link:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        body.dark-mode button:hover, body.dark-mode .button-link:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
 
-    .floating-icon-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 1;
-      pointer-events: all;
-      transition: opacity 0.3s ease;
-    }
+        /* Specific Button Hover Styles */
+        button.disco:hover, .button-link.disco:hover { background-color: #4a58d4 !important; }
 
-    .floating-icon {
-      width: 50px;
-      height: 50px;
-      background-color: transparent;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+        /* --- Dark Mode Toggle Button --- */
+        #dark-mode-switch {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--section-bg-color);
+            color: var(--text-color); /* Uses body text color */
+            border: 1px solid rgba(var(--text-color-rgb), 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+         #dark-mode-switch:hover {
+            transform: scale(1.1);
+         }
 
-    .floating-icon img {
-      width: 100%;
-      height: 100%;
-    }
+        /* --- Styles for Collapsible Audio Player --- */
+        .audio-entry {
+            margin-bottom: 15px;
+            border: 1px solid rgba(var(--text-color-rgb), 0.2);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: var(--section-bg-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
 
-    .floating-icon.dark-mode {
-      transform: rotate(180deg);
-    }
+        .toggle-audio {
+            /* This is a button, but styled differently */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(var(--text-color-rgb), 0.05);
+            color: var(--text-color) !important; /* Uses body text color, override general button */
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            margin: 0;
+            border-radius: 0;
+            border-bottom: 1px solid transparent;
+        }
 
-    .floating-icon:hover {
-      background-color: #818181;
-    }
+        .audio-entry.visible .toggle-audio {
+             border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
+        }
 
-    #dark-mode-switch {
-      position: fixed;
-      bottom: 20px;
-      right: 60px;
-      cursor: pointer;
-      font-size: 24px;
-      z-index: 1000;
-    }
+        .toggle-audio:hover {
+             /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
+             transform: none !important; /* Keep override */
+             box-shadow: none !important; /* Keep override */
+        }
 
-    body.dark-mode {
-      background-color: #222;
-      color: #fff;
-    }
 
-    .dark-mode section {
-      background-color: #363636 !important;
-    }
+        .toggle-icon {
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+        }
 
-    /* Mobile-specific styles */
-    @media screen and (max-width: 768px) {
-      #menuToggle {
-        display: block; /* Show hamburger menu */
-      }
+        .audio-player-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 15px;
+            background-color: var(--section-bg-color);
+        }
 
-      #nav {
-        display: none; /* Hide nav by default on mobile */
-        flex-direction: column;
-        width: 100%;
-        background-color: #3d3d3d;
-        position: absolute;
-        top: 60px;
-        right: 0;
-      }
+        .audio-entry.visible .audio-player-container {
+            max-height: 150px;
+            padding: 10px 15px;
+        }
 
-      #nav a {
-        margin: 10px 0;
-        padding: 10px;
-        text-align: center;
-      }
+        .audio-entry.visible .toggle-icon {
+            transform: rotate(45deg);
+        }
 
-      #nav.active {
-        display: flex; /* Show nav when active */
-      }
+        /* --- Custom Audio Player UI Styles --- */
+        .audio-player-container audio {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
 
-      section {
-        margin: 10px 5px;
-        padding: 10px;
-      }
+        .custom-audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 0;
+            background-color: transparent;
+        }
 
-      h1 {
-        font-size: 24px;
-      }
+        .custom-audio-player button { /* Specific styles for player buttons */
+            background: none !important;
+            border: none;
+            color: var(--text-color) !important; /* Override general button color */
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 5px;
+            margin: 0;
+            line-height: 1;
+            transition: color 0.2s ease, transform 0.2s ease;
+             flex-shrink: 0;
+        }
+        .custom-audio-player button:hover {
+            color: var(--link-color) !important; /* Override hover color too */
+            transform: scale(1.1);
+            box-shadow: none !important;
+        }
 
-      p {
-        font-size: 14px;
-      }
+        .time-display { /* This is a div, should inherit correctly */
+            font-size: 0.9em;
+            min-width: 35px;
+            text-align: center;
+            color: var(--text-color); /* Uses body text color */
+            font-variant-numeric: tabular-nums;
+             flex-shrink: 0;
+        }
 
-      button {
-        width: 100%; /* Full-width buttons on mobile */
-        margin: 5px 0;
-      }
+        .custom-audio-player input[type="range"] {
+            flex-grow: 1;
+            height: 8px;
+            cursor: pointer;
+            appearance: none;
+            background: rgba(var(--text-color-rgb), 0.2);
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s ease;
+            padding: 0;
+            margin: 0;
+            min-width: 50px;
+        }
+        .custom-audio-player input[type="range"]::-webkit-slider-thumb {
+             appearance: none; width: 16px; height: 16px;
+             background: var(--link-color); border-radius: 50%; cursor: pointer;
+        }
+        .custom-audio-player input[type="range"]::-moz-range-thumb {
+             width: 16px; height: 16px; background: var(--link-color);
+             border-radius: 50%; cursor: pointer; border: none;
+        }
+        .volume-slider {
+             flex-grow: 0;
+             max-width: 80px;
+             height: 6px;
+             flex-shrink: 0;
+        }
+        .volume-slider::-webkit-slider-thumb { width: 12px; height: 12px; }
+        .volume-slider::-moz-range-thumb { width: 12px; height: 12px; }
 
-      audio {
-        width: 100%; /* Full-width audio player on mobile */
-      }
 
-      .floating-icon-container {
-        bottom: 10px;
-        right: 10px;
-      }
+        /* --- Explicit Dark Mode Colors for Custom Player --- */
+        /* Ensures dark mode overrides even with !important */
+        body.dark-mode .custom-audio-player .time-display {
+            color: var(--text-color);
+        }
+        body.dark-mode .custom-audio-player button {
+            color: var(--text-color) !important;
+        }
+        body.dark-mode .custom-audio-player button:hover {
+             color: var(--link-color) !important;
+        }
+        body.dark-mode .custom-audio-player input[type="range"] {
+             background: rgba(var(--text-color-rgb), 0.3);
+        }
+        body.dark-mode .custom-audio-player input[type="range"]::-webkit-slider-thumb {
+             background: var(--link-color);
+        }
+        body.dark-mode .custom-audio-player input[type="range"]::-moz-range-thumb {
+             background: var(--link-color);
+        }
+        body.dark-mode .toggle-audio {
+             color: var(--text-color) !important;
+        }
+         body.dark-mode .toggle-audio:hover {
+             /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
+        }
 
-      .floating-icon {
-        width: 40px;
-        height: 40px;
-      }
 
-      #dark-mode-switch {
-        bottom: 10px;
-        right: 50px;
-        font-size: 20px;
-      }
-    }
-  </style>
+        /* --- Responsive Styles --- */
+        @media screen and (max-width: 768px) {
+            #header { padding: 10px 15px; position: relative; }
+            #logo img { height: 30px; }
+            #menuToggle { display: block; }
+
+            #nav {
+                display: none; flex-direction: column; width: 100%;
+                background-color: var(--header-bg-color); position: absolute;
+                top: 100%; left: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                padding-bottom: 10px;
+            }
+            #nav.active { display: flex; }
+            #nav a { margin: 5px 0; padding: 12px 15px; text-align: center; width: 90%; margin-left: auto; margin-right: auto; }
+
+            main { padding: 10px; margin-top: 10px; }
+            section { margin-bottom: 20px; padding: 15px; }
+
+            h1 { font-size: 1.5em; padding-bottom: 8px; border-bottom-width: 1px; }
+            h2 { font-size: 1.2em; }
+            p { font-size: 0.95em; margin-bottom: 10px; }
+
+            button, .button-link {
+                 padding: 10px 20px; font-size: 0.95em; margin-top: 8px;
+            }
+            #discord .button-link, #jokes .button-link, #tools .button-link,
+            #os .button-link, #aistory .button-link {
+                display: block; width: 100%; box-sizing: border-box;
+            }
+
+            /* Responsive custom player */
+             .custom-audio-player { flex-wrap: wrap; gap: 8px; }
+             .seek-bar { order: 1; width: 100%; flex-basis: 100%; }
+             .time-display { font-size: 0.85em; }
+             .custom-audio-player button { font-size: 1.1em; }
+             .volume-slider { max-width: 60px; }
+             .audio-entry.visible .audio-player-container {
+                max-height: 200px; /* Allow more height when wrapped */
+             }
+            .toggle-audio { font-size: 0.9em; padding: 10px 12px; }
+
+            #dark-mode-switch {
+                bottom: 15px; right: 15px; width: 45px; height: 45px; font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="header">
-    <img id="logo" src="https://wilsoncissel.com/pic.png" alt="Logo">
-    <button id="menuToggle">&#9776;</button>
-    <nav id="nav">
-      <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
-      <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a>
-      <a href="http://mixerdude.com/" target="_blank" class="">mixerdude.com</a>
-    </nav>
-  </div>
+    <div id="header">
+        <a href="https://wilsoncissel.com" id="logo">
+             <img src="https://wilsoncissel.com/pic.png" alt="Wilson Cissel Logo">
+        </a>
+        <button id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">☰</button>
+        <nav id="nav">
+            <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
+            <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a> <a href="http://mixerdude.com/" target="_blank">mixerdude.com</a>
+        </nav>
+    </div>
 
-  
+    <main>
+        <section id="intro">
+            <h1>Welcome</h1>
+            <p>Welcome to my personal website! Here I showcase my various projects, creations, and links.</p>
+             <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
+        </section>
 
-  <section id="projects">
-    <h1>Projects</h1>
-    <p>Welcome to my personal website, where I showcase my projects and programs.</p>
-    <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
-  </section>
+         <section id="aistory">
+             <h1>AI Story Choice</h1>
+             <p>Explore interactive stories powered by AI. Make choices and see where the narrative takes you!</p>
+             <a href="https://aistory.wilsoncissel.com" target="_blank" class="button-link">
+                Explore AI Stories
+             </a>
+         </section>
 
-  <section id="discord">
-    <h1>Discord Server</h1>
-    <p>I have a Discord Server.</p>
-    <a href="https://discord.gg/QMYfmSkchY" target="_blank">
-      <button class="disco" style="background-color: #7289d9;">Join my Discord Server</button>
-    </a>
-  </section>
+        <section id="discord">
+            <h1>Discord Server</h1>
+            <p>Join the community! Connect with others, discuss projects, and stay updated.</p>
+            <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="button-link disco">
+                 Join my Discord Server
+            </a>
+        </section>
 
-  <section id="music">
-    <h1>Music</h1>
-    <p>I made some Music</p>
-    <audio controls controlsList="nodownload">
-      <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
-      Your browser does not support direct listening.
-    </audio>
-    <audio controls controlsList="nodownload">
-      <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
-      Your browser does not support direct listening.
-    </audio>
-    <audio controls controlsList="nodownload">
-      <source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
-      Your browser does not support direct Listening.
-    </audio>
-    <audio controls controlsList="nodownload">
-      <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
-      Your browser does not support direct listening.
-    </audio>
-  </section>
+       <section id="music">
+           <h1>Music</h1>
+           <p>Check out some of the music I've produced (click to show player):</p>
 
-  <section id="jokes">
-    <h1>Jokes</h1>
-    <p>This is my brand new jokes website. Check it out</p>
-    <a href="https://joke.wilsoncissel.com/" target="_blank">
-      <button>Go</button>
-    </a>
-  </section>
+           <div class="audio-entry">
+               <button class="toggle-audio" aria-expanded="false">
+                   Wilson's Song 1
+                   <span class="toggle-icon">+</span>
+               </button>
+               <div class="audio-player-container">
+                   <audio preload="metadata">
+                       <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
+                       Your browser does not support the audio element.
+                   </audio>
+                   <div class="custom-audio-player">
+                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                       <div class="time-display current-time">0:00</div>
+                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                       <div class="time-display total-duration">0:00</div>
+                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                   </div>
+               </div>
+           </div>
 
-  <section id="QR">
-    <h1>QR Code Maker for Windows</h1>
-    <p>This is a QR Code Maker I made for Windows</p>
-    <a href="https://download.wilsoncissel.com/qr.html" target="_blank">
-      <button>Download QR Code Generator</button>
-    </a>
-  </section>
+           <div class="audio-entry">
+               <button class="toggle-audio" aria-expanded="false">
+                   Wilson's Song 2
+                   <span class="toggle-icon">+</span>
+               </button>
+               <div class="audio-player-container">
+                   <audio preload="metadata">
+                       <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                   </audio>
+                   <div class="custom-audio-player">
+                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                       <div class="time-display current-time">0:00</div>
+                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                       <div class="time-display total-duration">0:00</div>
+                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                   </div>
+               </div>
+           </div>
 
-  <section id="Wemo">
-    <h1>Local WeMo Controller for Windows</h1>
-    <p>This is a WeMo Smart device controller where you can control any local WeMo device with its IP Address.</p>
-    <a href="https://download.wilsoncissel.com/wemo.html" target="_blank">
-      <button>Download WeMo Device Controller</button>
-    </a>
-  </section>
+           <div class="audio-entry">
+                <button class="toggle-audio" aria-expanded="false">
+                    Wilson's Song 3
+                    <span class="toggle-icon">+</span>
+                </button>
+                <div class="audio-player-container">
+                    <audio preload="metadata">
+                        <source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
+                         Your browser does not support the audio element.
+                    </audio>
+                    <div class="custom-audio-player">
+                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                       <div class="time-display current-time">0:00</div>
+                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                       <div class="time-display total-duration">0:00</div>
+                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                    </div>
+                </div>
+            </div>
 
-  <section id="os">
-    <h1>Wilo OS</h1>
-    <p>This is my Google slide OS: Wilo OS 8</p>
-    <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank">
-      <button>Open</button>
-    </a>
-  </section>
+            <div class="audio-entry">
+                <button class="toggle-audio" aria-expanded="false">
+                    Wilson's Song 4
+                    <span class="toggle-icon">+</span>
+                </button>
+                <div class="audio-player-container">
+                     <audio preload="metadata">
+                         <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
+                         Your browser does not support the audio element.
+                     </audio>
+                     <div class="custom-audio-player">
+                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                       <div class="time-display current-time">0:00</div>
+                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                       <div class="time-display total-duration">0:00</div>
+                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                    </div>
+                </div>
+            </div>
 
-  <div id="dark-mode-switch" onclick="toggleDarkMode()">
-    <i id="mode-icon" class="fas fa-moon"></i>
-  </div>
+       </section>
 
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      var modeIcon = document.getElementById('mode-icon');
-      if (document.body.classList.contains('dark-mode')) {
-        modeIcon.classList.remove('fa-moon');
-        modeIcon.classList.add('fa-sun');
-      } else {
-        modeIcon.classList.remove('fa-sun');
-        modeIcon.classList.add('fa-moon');
-      }
-    }
+        <section id="jokes">
+            <h1>Jokes Website</h1>
+            <p>Need a laugh? Check out my brand new jokes website.</p>
+            <a href="https://joke.wilsoncissel.com/" target="_blank" class="button-link">
+                 Visit Jokes Site
+            </a>
+        </section>
 
-    document.getElementById('menuToggle').addEventListener('click', function() {
-      var nav = document.getElementById('nav');
-      nav.classList.toggle('active');
-    });
+        <section id="tools">
+             <h1>Windows Tools</h1>
+             <div class="tool-item" style="margin-bottom: 20px;">
+                <h2>QR Code Maker</h2>
+                <p>A simple tool I made for Windows to generate QR codes easily.</p>
+                <a href="https://download.wilsoncissel.com/qr.html" target="_blank" class="button-link">
+                    Download QR Code Generator
+                </a>
+             </div>
+              <div class="tool-item">
+                 <h2>Local WeMo Controller</h2>
+                 <p>Control any local WeMo smart device directly using its IP Address with this Windows application.</p>
+                 <a href="https://download.wilsoncissel.com/wemo.html" target="_blank" class="button-link">
+                     Download WeMo Device Controller
+                 </a>
+              </div>
+        </section>
 
-    function toggleTheme(theme) {
-      if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-      } else {
-        document.body.classList.remove('dark-mode');
-      }
-    }
-  </script>
+        <section id="os">
+            <h1>Wilo OS</h1>
+            <p>Explore Wilo OS 8, my operating system concept built entirely within Google Slides.</p>
+            <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank" class="button-link">
+                 Open Wilo OS 8
+            </a>
+        </section>
+    </main>
+
+    <div id="dark-mode-switch" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <i id="mode-icon" class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // --- Setup ---
+        const body = document.body;
+        const modeIcon = document.getElementById('mode-icon');
+        const themeMeta = document.getElementById('theme-color-meta');
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        // --- Theme Handling ---
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                if (modeIcon) modeIcon.classList.replace('fa-moon', 'fa-sun');
+                if (themeMeta) themeMeta.content = '#1a1a1a';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                if (modeIcon) modeIcon.classList.replace('fa-sun', 'fa-moon');
+                if (themeMeta) themeMeta.content = '#F5F5F5';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function toggleDarkMode() {
+            setTheme(body.classList.contains('dark-mode') ? 'light' : 'dark');
+        }
+
+        // --- Mobile Menu ---
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                const isExpanded = nav.classList.contains('active');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+            });
+
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        } else {
+             console.warn("Mobile menu elements (#menuToggle or #nav) not found.");
+        }
+
+        // --- Collapsible Toggle Logic (Base) ---
+        document.querySelectorAll('.toggle-audio').forEach(button => {
+            button.addEventListener('click', () => {
+                const audioEntry = button.closest('.audio-entry');
+                if (!audioEntry) return;
+                const currentlyVisible = audioEntry.classList.contains('visible');
+
+                // Close other open players
+                document.querySelectorAll('.audio-entry.visible').forEach(visibleEntry => {
+                    if (visibleEntry !== audioEntry) {
+                        visibleEntry.classList.remove('visible');
+                        const otherButton = visibleEntry.querySelector('.toggle-audio');
+                        if (otherButton) {
+                            otherButton.setAttribute('aria-expanded', 'false');
+                            const otherIcon = otherButton.querySelector('.toggle-icon');
+                            if (otherIcon) otherIcon.textContent = '+';
+                        }
+                        const audioEl = visibleEntry.querySelector('audio');
+                        if (audioEl && !audioEl.paused) {
+                            audioEl.pause();
+                        }
+                    }
+                });
+
+                // Toggle the clicked one
+                audioEntry.classList.toggle('visible');
+                button.setAttribute('aria-expanded', !currentlyVisible);
+                const icon = button.querySelector('.toggle-icon');
+                if (icon) icon.textContent = currentlyVisible ? '+' : '−';
+
+                if (currentlyVisible) { // If closing
+                    const audioEl = audioEntry.querySelector('audio');
+                    if (audioEl && !audioEl.paused) {
+                        audioEl.pause();
+                    }
+                } else { // If opening
+                    initializeCustomPlayer(audioEntry); // Initialize its custom player
+                }
+            });
+        });
+
+        // --- Custom Audio Player Logic ---
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds < 0) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function initializeCustomPlayer(audioEntry) {
+            const audio = audioEntry.querySelector('audio');
+            const playerUI = audioEntry.querySelector('.custom-audio-player');
+            if (!audio || !playerUI) return; // Essential elements check
+
+            // Prevent double initialization
+            if (playerUI.dataset.initialized === 'true') return;
+            playerUI.dataset.initialized = 'true'; // Mark as initialized
+
+            const playPauseBtn = playerUI.querySelector('.play-pause-btn');
+            const playPauseIcon = playPauseBtn?.querySelector('i');
+            const seekBar = playerUI.querySelector('.seek-bar');
+            const currentTimeEl = playerUI.querySelector('.current-time');
+            const totalDurationEl = playerUI.querySelector('.total-duration');
+            const volumeBtn = playerUI.querySelector('.volume-btn');
+            const volumeIcon = volumeBtn?.querySelector('i');
+            const volumeSlider = playerUI.querySelector('.volume-slider');
+
+            // Check if all necessary UI elements were found
+            if (!playPauseBtn || !playPauseIcon || !seekBar || !currentTimeEl || !totalDurationEl || !volumeBtn || !volumeIcon || !volumeSlider) {
+                console.error("One or more custom player UI elements missing in:", audioEntry);
+                playerUI.dataset.initialized = 'false'; // Reset if failed
+                return;
+            }
+
+            // --- Event Handlers for THIS player instance ---
+            const handlePlay = () => {
+                playPauseIcon.classList.replace('fa-play', 'fa-pause');
+                playPauseBtn.setAttribute('aria-label', 'Pause');
+            };
+            const handlePause = () => {
+                playPauseIcon.classList.replace('fa-pause', 'fa-play');
+                playPauseBtn.setAttribute('aria-label', 'Play');
+            };
+             const handleEnded = () => {
+                 handlePause(); // Show play icon
+                 audio.currentTime = 0; // Reset time
+                 seekBar.value = 0; // Reset seek bar visually
+                 currentTimeEl.textContent = formatTime(0); // Reset current time display
+             };
+            const handleMetadata = () => {
+                if (isFinite(audio.duration)) {
+                    seekBar.max = audio.duration;
+                    totalDurationEl.textContent = formatTime(audio.duration);
+                } else {
+                    totalDurationEl.textContent = '??:??'; // Indicate unknown duration
+                }
+            };
+            const handleTimeUpdate = () => {
+                if (isFinite(audio.duration)) {
+                    seekBar.value = audio.currentTime;
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                }
+            };
+            const handleVolumeChange = () => {
+                volumeSlider.value = audio.volume; // Sync slider first
+                if (audio.muted || audio.volume === 0) {
+                    volumeIcon.className = 'fas fa-volume-mute'; // Use className for simplicity
+                    volumeBtn.setAttribute('aria-label', 'Unmute');
+                } else if (audio.volume < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down';
+                    volumeBtn.setAttribute('aria-label', 'Mute');
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up';
+                    volumeBtn.setAttribute('aria-label', 'Mute');
+                }
+            };
+
+            // --- Add Event Listeners ---
+            playPauseBtn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+            seekBar.addEventListener('input', () => { // Update display while scrubbing
+                if(isFinite(audio.duration)) currentTimeEl.textContent = formatTime(seekBar.value);
+            });
+            seekBar.addEventListener('change', () => { // Update audio time only on mouseup/change
+                if(isFinite(audio.duration)) audio.currentTime = seekBar.value;
+            });
+            volumeBtn.addEventListener('click', () => { audio.muted = !audio.muted; });
+            volumeSlider.addEventListener('input', () => {
+                audio.volume = volumeSlider.value;
+                if (audio.muted && audio.volume > 0) audio.muted = false; // Unmute if slider moved
+            });
+
+            audio.addEventListener('play', handlePlay);
+            audio.addEventListener('pause', handlePause);
+            audio.addEventListener('ended', handleEnded);
+            audio.addEventListener('loadedmetadata', handleMetadata);
+            audio.addEventListener('timeupdate', handleTimeUpdate);
+            audio.addEventListener('volumechange', handleVolumeChange);
+
+            // --- Initial State Setup ---
+            handleMetadata(); // Set initial duration if already loaded
+            handleVolumeChange(); // Set initial volume icon/slider state
+            handlePause(); // Ensure play icon is shown initially
+
+        } // End of initializeCustomPlayer
+
+        // --- Initial Theme Load ---
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (prefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        // Listen for changes in system preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
 </body>
 </html>

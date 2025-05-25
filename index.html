@@ -8,7 +8,8 @@
     <meta content="The personal website for Wilson Cissel/Mixer Dude's projects." property="og:description">
     <meta content="https://wilsoncissel.com" property="og:url">
     <meta content="https://wilsoncissel.com/pic.png" property="og:image">
-    <meta content="#F5F5F5" data-react-helmet="true" name="theme-color" id="theme-color-meta"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta content="#F5F5F5" data-react-helmet="true" name="theme-color" id="theme-color-meta">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- Base & Theme Variables --- */
         :root {
@@ -71,7 +72,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-             transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         #logo img {
@@ -107,14 +108,14 @@
             background-color: var(--link-hover-bg);
             color: var(--link-hover-text);
         }
-         #nav a.dis:hover { background-color: #5865F2; color: white; }
-         #nav a.yt:hover { background-color: #FF0000; color: white; }
+        #nav a.dis:hover { background-color: #5865F2; color: white; }
+        #nav a.yt:hover { background-color: #FF0000; color: white; }
 
         /* --- Main Content & Sections --- */
         main {
-             padding: 20px;
-             max-width: 1000px;
-             margin: 20px auto;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
         }
 
         section {
@@ -149,7 +150,7 @@
             margin: 0 0 15px 0;
             color: var(--text-color);
         }
-         p a {
+        p a {
             color: var(--link-color);
             text-decoration: none;
             font-weight: 500;
@@ -210,9 +211,9 @@
             box-shadow: var(--box-shadow);
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
-         #dark-mode-switch:hover {
+        #dark-mode-switch:hover {
             transform: scale(1.1);
-         }
+        }
 
         /* --- Styles for Collapsible Audio Player --- */
         .audio-entry {
@@ -246,15 +247,14 @@
         }
 
         .audio-entry.visible .toggle-audio {
-             border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
+            border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
         }
 
         .toggle-audio:hover {
-             /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
-             transform: none !important; /* Keep override */
-             box-shadow: none !important; /* Keep override */
+            /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
+            transform: none !important; /* Keep override */
+            box-shadow: none !important; /* Keep override */
         }
-
 
         .toggle-icon {
             font-size: 1.2em;
@@ -304,7 +304,7 @@
             margin: 0;
             line-height: 1;
             transition: color 0.2s ease, transform 0.2s ease;
-             flex-shrink: 0;
+            flex-shrink: 0;
         }
         .custom-audio-player button:hover {
             color: var(--link-color) !important; /* Override hover color too */
@@ -318,7 +318,7 @@
             text-align: center;
             color: var(--text-color); /* Uses body text color */
             font-variant-numeric: tabular-nums;
-             flex-shrink: 0;
+            flex-shrink: 0;
         }
 
         .custom-audio-player input[type="range"] {
@@ -335,22 +335,21 @@
             min-width: 50px;
         }
         .custom-audio-player input[type="range"]::-webkit-slider-thumb {
-             appearance: none; width: 16px; height: 16px;
-             background: var(--link-color); border-radius: 50%; cursor: pointer;
+            appearance: none; width: 16px; height: 16px;
+            background: var(--link-color); border-radius: 50%; cursor: pointer;
         }
         .custom-audio-player input[type="range"]::-moz-range-thumb {
-             width: 16px; height: 16px; background: var(--link-color);
-             border-radius: 50%; cursor: pointer; border: none;
+            width: 16px; height: 16px; background: var(--link-color);
+            border-radius: 50%; cursor: pointer; border: none;
         }
         .volume-slider {
-             flex-grow: 0;
-             max-width: 80px;
-             height: 6px;
-             flex-shrink: 0;
+            flex-grow: 0;
+            max-width: 80px;
+            height: 6px;
+            flex-shrink: 0;
         }
         .volume-slider::-webkit-slider-thumb { width: 12px; height: 12px; }
         .volume-slider::-moz-range-thumb { width: 12px; height: 12px; }
-
 
         /* --- Explicit Dark Mode Colors for Custom Player --- */
         /* Ensures dark mode overrides even with !important */
@@ -361,24 +360,23 @@
             color: var(--text-color) !important;
         }
         body.dark-mode .custom-audio-player button:hover {
-             color: var(--link-color) !important;
+            color: var(--link-color) !important;
         }
         body.dark-mode .custom-audio-player input[type="range"] {
-             background: rgba(var(--text-color-rgb), 0.3);
+            background: rgba(var(--text-color-rgb), 0.3);
         }
         body.dark-mode .custom-audio-player input[type="range"]::-webkit-slider-thumb {
-             background: var(--link-color);
+            background: var(--link-color);
         }
         body.dark-mode .custom-audio-player input[type="range"]::-moz-range-thumb {
-             background: var(--link-color);
+            background: var(--link-color);
         }
         body.dark-mode .toggle-audio {
-             color: var(--text-color) !important;
+            color: var(--text-color) !important;
         }
-         body.dark-mode .toggle-audio:hover {
-             /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
+        body.dark-mode .toggle-audio:hover {
+            /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
         }
-
 
         /* --- Responsive Styles --- */
         @media screen and (max-width: 768px) {
@@ -403,22 +401,22 @@
             p { font-size: 0.95em; margin-bottom: 10px; }
 
             button, .button-link {
-                 padding: 10px 20px; font-size: 0.95em; margin-top: 8px;
+                padding: 10px 20px; font-size: 0.95em; margin-top: 8px;
             }
             #discord .button-link, #jokes .button-link, #tools .button-link,
-            #os .button-link, #aistory .button-link {
+            #os .button-link, #aistory .button-link, #bwap .button-link {
                 display: block; width: 100%; box-sizing: border-box;
             }
 
             /* Responsive custom player */
-             .custom-audio-player { flex-wrap: wrap; gap: 8px; }
-             .seek-bar { order: 1; width: 100%; flex-basis: 100%; }
-             .time-display { font-size: 0.85em; }
-             .custom-audio-player button { font-size: 1.1em; }
-             .volume-slider { max-width: 60px; }
-             .audio-entry.visible .audio-player-container {
+            .custom-audio-player { flex-wrap: wrap; gap: 8px; }
+            .seek-bar { order: 1; width: 100%; flex-basis: 100%; }
+            .time-display { font-size: 0.85em; }
+            .custom-audio-player button { font-size: 1.1em; }
+            .volume-slider { max-width: 60px; }
+            .audio-entry.visible .audio-player-container {
                 max-height: 200px; /* Allow more height when wrapped */
-             }
+            }
             .toggle-audio { font-size: 0.9em; padding: 10px 12px; }
 
             #dark-mode-switch {
@@ -430,12 +428,13 @@
 <body>
     <div id="header">
         <a href="https://wilsoncissel.com" id="logo">
-             <img src="https://wilsoncissel.com/pic.png" alt="Wilson Cissel Logo">
+            <img src="https://wilsoncissel.com/pic.png" alt="Wilson Cissel Logo">
         </a>
         <button id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">☰</button>
         <nav id="nav">
             <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
-            <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a> <a href="http://mixerdude.com/" target="_blank">mixerdude.com</a>
+            <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a>
+            <a href="http://mixerdude.com/" target="_blank">mixerdude.com</a>
         </nav>
     </div>
 
@@ -443,88 +442,100 @@
         <section id="intro">
             <h1>Welcome</h1>
             <p>Welcome to my personal website! Here I showcase my various projects, creations, and links.</p>
-             <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
+            <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
+        </section>
+
+
+        <section id="bwap">
+            <h1>(NEW!) BWAP - Button With A Personality</h1>
+            <p>Interact with a quirky button that reacts to your clicks with humor, surprises, and mini-games. How many clicks can you handle before it gives up?</p>
+            <a href="https://bwap.wilsoncissel.com" target="_blank" class="button-link">
+                Play BWAP
+            </a>
+        </section>
+
+
+        <section id="buttongame">
+            <h1>Cityle</h1>
+            <p>Play this cool game where you guess what the correct city is.</p>
+            <a href="https://worldle.wilsoncissel.com" target="_blank" class="button-link">
+                Play Worldle
+            </a>
         </section>
 
         <section id="buttongame">
-             <h1>(NEW!) Worldle</h1>
-             <p>Play this cool game where you guess what the correct city is. This game is Based off Wordle</p>
-             <a href="https://worldle.wilsoncissel.com" target="_blank" class="button-link">
-                Play Worldle
-             </a>
-         </section>
-
-        <section id="buttongame">
-             <h1>(NEW!) Whack the Button Game</h1>
-             <p>Play this cool button game to see how many buttons you can press. Set up time attack mode to see how many you can beat in that time. Turn on Expert Mode for a bit of a harder (but not much harder) game.</p>
-             <a href="https://buttongame.wilsoncissel.com" target="_blank" class="button-link">
+            <h1>Whack the Button Game</h1>
+            <p>Play this cool button game to see how many buttons you can press. Set up time attack mode to see how many you can beat in that time. Turn on Expert Mode for a bit of a harder (but not much harder) game.</p>
+            <a href="https://buttongame.wilsoncissel.com" target="_blank" class="button-link">
                 Play Whack the Button
-             </a>
-         </section>
+            </a>
+        </section>
 
-         <section id="aistory">
-             <h1>AI Story Choice</h1>
-             <p>Explore interactive stories powered by AI. Make choices and see where the narrative takes you!</p>
-             <a href="https://aistory.wilsoncissel.com" target="_blank" class="button-link">
+        <section id="aistory">
+            <h1>AI Story Choice</h1>
+            <p>Explore interactive stories powered by AI. Make choices and see where the narrative takes you!</p>
+            <a href="https://aistory.wilsoncissel.com" target="_blank" class="button-link">
                 Explore AI Stories
-             </a>
-         </section>
+            </a>
+        </section>
+
+        
 
         <section id="discord">
             <h1>Discord Server</h1>
             <p>Join the community! Connect with others, discuss projects, and stay updated.</p>
             <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="button-link disco">
-                 Join my Discord Server
+                Join my Discord Server
             </a>
         </section>
 
-       <section id="music">
-           <h1>Music</h1>
-           <p>Check out some of the music I've produced (click to show player):</p>
+        <section id="music">
+            <h1>Music</h1>
+            <p>Check out some of the music I've produced (click to show player):</p>
 
-           <div class="audio-entry">
-               <button class="toggle-audio" aria-expanded="false">
-                   Wilson's Song 1
-                   <span class="toggle-icon">+</span>
-               </button>
-               <div class="audio-player-container">
-                   <audio preload="metadata">
-                       <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
-                       Your browser does not support the audio element.
-                   </audio>
-                   <div class="custom-audio-player">
-                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                       <div class="time-display current-time">0:00</div>
-                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                       <div class="time-display total-duration">0:00</div>
-                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                   </div>
-               </div>
-           </div>
-
-           <div class="audio-entry">
-               <button class="toggle-audio" aria-expanded="false">
-                   Wilson's Song 2
-                   <span class="toggle-icon">+</span>
-               </button>
-               <div class="audio-player-container">
-                   <audio preload="metadata">
-                       <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
+            <div class="audio-entry">
+                <button class="toggle-audio" aria-expanded="false">
+                    Wilson's Song 1
+                    <span class="toggle-icon">+</span>
+                </button>
+                <div class="audio-player-container">
+                    <audio preload="metadata">
+                        <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
                         Your browser does not support the audio element.
-                   </audio>
-                   <div class="custom-audio-player">
-                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                       <div class="time-display current-time">0:00</div>
-                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                       <div class="time-display total-duration">0:00</div>
-                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                   </div>
-               </div>
-           </div>
+                    </audio>
+                    <div class="custom-audio-player">
+                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                        <div class="time-display current-time">0:00</div>
+                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                        <div class="time-display total-duration">0:00</div>
+                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                    </div>
+                </div>
+            </div>
 
-           <div class="audio-entry">
+            <div class="audio-entry">
+                <button class="toggle-audio" aria-expanded="false">
+                    Wilson's Song 2
+                    <span class="toggle-icon">+</span>
+                </button>
+                <div class="audio-player-container">
+                    <audio preload="metadata">
+                        <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="custom-audio-player">
+                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                        <div class="time-display current-time">0:00</div>
+                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                        <div class="time-display total-duration">0:00</div>
+                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-entry">
                 <button class="toggle-audio" aria-expanded="false">
                     Wilson's Song 3
                     <span class="toggle-icon">+</span>
@@ -532,15 +543,15 @@
                 <div class="audio-player-container">
                     <audio preload="metadata">
                         <source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
-                         Your browser does not support the audio element.
+                        Your browser does not support the audio element.
                     </audio>
                     <div class="custom-audio-player">
-                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                       <div class="time-display current-time">0:00</div>
-                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                       <div class="time-display total-duration">0:00</div>
-                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                        <div class="time-display current-time">0:00</div>
+                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                        <div class="time-display total-duration">0:00</div>
+                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
                     </div>
                 </div>
             </div>
@@ -551,54 +562,53 @@
                     <span class="toggle-icon">+</span>
                 </button>
                 <div class="audio-player-container">
-                     <audio preload="metadata">
-                         <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
-                         Your browser does not support the audio element.
-                     </audio>
-                     <div class="custom-audio-player">
-                       <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                       <div class="time-display current-time">0:00</div>
-                       <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                       <div class="time-display total-duration">0:00</div>
-                       <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                       <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                    <audio preload="metadata">
+                        <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="custom-audio-player">
+                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+                        <div class="time-display current-time">0:00</div>
+                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
+                        <div class="time-display total-duration">0:00</div>
+                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
                     </div>
                 </div>
             </div>
-
-       </section>
+        </section>
 
         <section id="jokes">
             <h1>Jokes Website</h1>
             <p>Need a laugh? Check out my brand new jokes website.</p>
             <a href="https://joke.wilsoncissel.com/" target="_blank" class="button-link">
-                 Visit Jokes Site
+                Visit Jokes Site
             </a>
         </section>
 
         <section id="tools">
-             <h1>Windows Tools</h1>
-             <div class="tool-item" style="margin-bottom: 20px;">
+            <h1>Windows Tools</h1>
+            <div class="tool-item" style="margin-bottom: 20px;">
                 <h2>QR Code Maker</h2>
                 <p>A simple tool I made for Windows to generate QR codes easily.</p>
                 <a href="https://download.wilsoncissel.com/qr.html" target="_blank" class="button-link">
                     Download QR Code Generator
                 </a>
-             </div>
-              <div class="tool-item">
-                 <h2>Local WeMo Controller</h2>
-                 <p>Control any local WeMo smart device directly using its IP Address with this Windows application.</p>
-                 <a href="https://download.wilsoncissel.com/wemo.html" target="_blank" class="button-link">
-                     Download WeMo Device Controller
-                 </a>
-              </div>
+            </div>
+            <div class="tool-item">
+                <h2>Local WeMo Controller</h2>
+                <p>Control any local WeMo smart device directly using its IP Address with this Windows application.</p>
+                <a href="https://download.wilsoncissel.com/wemo.html" target="_blank" class="button-link">
+                    Download WeMo Device Controller
+                </a>
+            </div>
         </section>
 
         <section id="os">
             <h1>Wilo OS</h1>
             <p>Explore Wilo OS 8, my operating system concept built entirely within Google Slides.</p>
             <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank" class="button-link">
-                 Open Wilo OS 8
+                Open Wilo OS 8
             </a>
         </section>
     </main>
@@ -651,7 +661,7 @@
                 });
             });
         } else {
-             console.warn("Mobile menu elements (#menuToggle or #nav) not found.");
+            console.warn("Mobile menu elements (#menuToggle or #nav) not found.");
         }
 
         // --- Collapsible Toggle Logic (Base) ---
@@ -737,12 +747,12 @@
                 playPauseIcon.classList.replace('fa-pause', 'fa-play');
                 playPauseBtn.setAttribute('aria-label', 'Play');
             };
-             const handleEnded = () => {
-                 handlePause(); // Show play icon
-                 audio.currentTime = 0; // Reset time
-                 seekBar.value = 0; // Reset seek bar visually
-                 currentTimeEl.textContent = formatTime(0); // Reset current time display
-             };
+            const handleEnded = () => {
+                handlePause(); // Show play icon
+                audio.currentTime = 0; // Reset time
+                seekBar.value = 0; // Reset seek bar visually
+                currentTimeEl.textContent = formatTime(0); // Reset current time display
+            };
             const handleMetadata = () => {
                 if (isFinite(audio.duration)) {
                     seekBar.max = audio.duration;
@@ -796,7 +806,6 @@
             handleMetadata(); // Set initial duration if already loaded
             handleVolumeChange(); // Set initial volume icon/slider state
             handlePause(); // Ensure play icon is shown initially
-
         } // End of initializeCustomPlayer
 
         // --- Initial Theme Load ---

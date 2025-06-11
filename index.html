@@ -1,841 +1,1211 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wilson Cissel's Projects</title>
-    <meta content="wilsoncissel.com" property="og:title">
-    <meta content="The personal website for Wilson Cissel/Mixer Dude's projects." property="og:description">
-    <meta content="https://wilsoncissel.com" property="og:url">
-    <meta content="https://wilsoncissel.com/pic.png" property="og:image">
-    <meta content="#F5F5F5" data-react-helmet="true" name="theme-color" id="theme-color-meta">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>3D Light and Fan Switch Simulator with Bed</title>
     <style>
-        /* --- Base & Theme Variables --- */
-        :root {
-            /* Light Theme Variables */
-            --bg-color: #F5F5F5;
-            --section-bg-color: #FFFFFF;
-            --text-color: #333333;
-            --header-bg-color: #3d3d3d;
-            --header-text-color: #FFFFFF;
-            --link-color: #0072f5;
-            --link-hover-bg: #FFFFFF;
-            --link-hover-text: #333333;
-            --button-bg-color: #0072f5;
-            --button-text-color: #FFFFFF; /* White text for general buttons */
-            --button-hover-bg: #005bb5;
-            --button-hover-text: #FFFFFF;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --text-color-rgb: 51, 51, 51; /* RGB version for rgba */
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        body { margin: 0; overflow: hidden; background: #333; }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
             font-size: 16px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
         }
-
-        body.dark-mode {
-            /* Dark Theme Variables */
-            --bg-color: #1a1a1a;
-            --section-bg-color: #2c2c2c;
-            --text-color: #e0e0e0; /* Light text for dark mode */
-            --header-bg-color: #252525;
-            --header-text-color: #e0e0e0;
-            --link-color: #3498db;
-            --link-hover-bg: #444444;
-            --link-hover-text: #ffffff;
-            --button-bg-color: #3498db;
-            --button-text-color: #FFFFFF; /* White text for general buttons */
-            --button-hover-bg: #2980b9;
-            --button-hover-text: #FFFFFF;
-            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            --text-color-rgb: 224, 224, 224; /* RGB version for rgba */
-        }
-
-        /* --- Header Styles --- */
-        #header {
-            background-color: var(--header-bg-color);
-            color: var(--header-text-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.3s ease;
-        }
-
-        #logo img {
-           height: 40px;
-           width: auto;
-           display: block;
-        }
-
-        #menuToggle {
-            display: none;
-            font-size: 28px;
-            background: none;
-            border: none;
-            color: var(--header-text-color);
-            cursor: pointer;
-        }
-
-        #nav {
-            display: flex;
-            gap: 15px;
-        }
-
-        #nav a {
-            color: var(--header-text-color);
+        #info a {
+            color: #87ceeb;
             text-decoration: none;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: 500;
         }
-
-        #nav a:hover, #nav a.active {
-            background-color: var(--link-hover-bg);
-            color: var(--link-hover-text);
-        }
-        #nav a.dis:hover { background-color: #5865F2; color: white; }
-        #nav a.yt:hover { background-color: #FF0000; color: white; }
-
-        /* --- Main Content & Sections --- */
-        main {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 20px auto;
-        }
-
-        section {
-            background-color: var(--section-bg-color);
-            margin-bottom: 30px;
-            padding: 25px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 2em;
-            font-weight: 600;
-            margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--link-color);
-            padding-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        h2 {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        p {
-            margin: 0 0 15px 0;
-            color: var(--text-color);
-        }
-        p a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        p a:hover {
+        #info a:hover {
             text-decoration: underline;
         }
-
-        /* --- General Button & Link Button Styles --- */
-        /* This targets general buttons, NOT the custom audio player ones specifically */
-        button, .button-link {
-            display: inline-block;
-            background-color: var(--button-bg-color);
-            color: var(--button-text-color) !important; /* Sets general button text color (white) */
-            border: none;
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
-            font-size: 1em;
-            font-weight: 500;
+        #hideButton {
             margin-top: 10px;
-            text-align: center;
-            vertical-align: middle;
+            padding: 5px 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: white;
+            background-color: #555;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
-
-        button:hover, .button-link:hover {
-            background-color: var(--button-hover-bg);
-            color: var(--button-hover-text) !important;
+        #hideButton:not(:disabled):hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: #666;
         }
-        body.dark-mode button:hover, body.dark-mode .button-link:hover {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        #hideButton:not(:disabled):active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        /* Specific Button Hover Styles */
-        button.disco:hover, .button-link.disco:hover { background-color: #4a58d4 !important; }
-
-        /* --- Dark Mode Toggle Button --- */
-        #dark-mode-switch {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--section-bg-color);
-            color: var(--text-color); /* Uses body text color */
-            border: 1px solid rgba(var(--text-color-rgb), 0.5);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 24px;
-            z-index: 1000;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        #hideButton:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            border-color: #bbbbbb;
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
         }
-        #dark-mode-switch:hover {
-            transform: scale(1.1);
-        }
-
-        /* --- Styles for Collapsible Audio Player --- */
-        .audio-entry {
-            margin-bottom: 15px;
-            border: 1px solid rgba(var(--text-color-rgb), 0.2);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            background-color: var(--section-bg-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .toggle-audio {
-            /* This is a button, but styled differently */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 12px 15px;
-            background-color: rgba(var(--text-color-rgb), 0.05);
-            color: var(--text-color) !important; /* Uses body text color, override general button */
+        #fixButton {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            top: auto;
+            left: auto;
+            padding: 10px 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
             border: none;
-            text-align: left;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box;
-            margin: 0;
-            border-radius: 0;
-            border-bottom: 1px solid transparent;
-        }
-
-        .audio-entry.visible .toggle-audio {
-            border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
-        }
-
-        .toggle-audio:hover {
-            /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
-            transform: none !important; /* Keep override */
-            box-shadow: none !important; /* Keep override */
-        }
-
-        .toggle-icon {
-            font-size: 1.2em;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-            margin-left: 10px;
-        }
-
-        .audio-player-container {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-            padding: 0 15px;
-            background-color: var(--section-bg-color);
-        }
-
-        .audio-entry.visible .audio-player-container {
-            max-height: 150px;
-            padding: 10px 15px;
-        }
-
-        .audio-entry.visible .toggle-icon {
-            transform: rotate(45deg);
-        }
-
-        /* --- Custom Audio Player UI Styles --- */
-        .audio-player-container audio {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-        }
-
-        .custom-audio-player {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 5px 0;
-            background-color: transparent;
-        }
-
-        .custom-audio-player button { /* Specific styles for player buttons */
-            background: none !important;
-            border: none;
-            color: var(--text-color) !important; /* Override general button color */
-            font-size: 1.2em;
-            cursor: pointer;
-            padding: 5px;
-            margin: 0;
-            line-height: 1;
-            transition: color 0.2s ease, transform 0.2s ease;
-            flex-shrink: 0;
-        }
-        .custom-audio-player button:hover {
-            color: var(--link-color) !important; /* Override hover color too */
-            transform: scale(1.1);
-            box-shadow: none !important;
-        }
-
-        .time-display { /* This is a div, should inherit correctly */
-            font-size: 0.9em;
-            min-width: 35px;
-            text-align: center;
-            color: var(--text-color); /* Uses body text color */
-            font-variant-numeric: tabular-nums;
-            flex-shrink: 0;
-        }
-
-        .custom-audio-player input[type="range"] {
-            flex-grow: 1;
-            height: 8px;
-            cursor: pointer;
-            appearance: none;
-            background: rgba(var(--text-color-rgb), 0.2);
             border-radius: 5px;
-            outline: none;
-            transition: background 0.3s ease;
-            padding: 0;
-            margin: 0;
-            min-width: 50px;
+            cursor: pointer;
+            display: none;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
-        .custom-audio-player input[type="range"]::-webkit-slider-thumb {
-            appearance: none; width: 16px; height: 16px;
-            background: var(--link-color); border-radius: 50%; cursor: pointer;
+        #fixButton:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: #45a049;
         }
-        .custom-audio-player input[type="range"]::-moz-range-thumb {
-            width: 16px; height: 16px; background: var(--link-color);
-            border-radius: 50%; cursor: pointer; border: none;
+        #fixButton:not(:disabled):active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .volume-slider {
-            flex-grow: 0;
-            max-width: 80px;
-            height: 6px;
-            flex-shrink: 0;
-        }
-        .volume-slider::-webkit-slider-thumb { width: 12px; height: 12px; }
-        .volume-slider::-moz-range-thumb { width: 12px; height: 12px; }
-
-        /* --- Explicit Dark Mode Colors for Custom Player --- */
-        /* Ensures dark mode overrides even with !important */
-        body.dark-mode .custom-audio-player .time-display {
-            color: var(--text-color);
-        }
-        body.dark-mode .custom-audio-player button {
-            color: var(--text-color) !important;
-        }
-        body.dark-mode .custom-audio-player button:hover {
-            color: var(--link-color) !important;
-        }
-        body.dark-mode .custom-audio-player input[type="range"] {
-            background: rgba(var(--text-color-rgb), 0.3);
-        }
-        body.dark-mode .custom-audio-player input[type="range"]::-webkit-slider-thumb {
-            background: var(--link-color);
-        }
-        body.dark-mode .custom-audio-player input[type="range"]::-moz-range-thumb {
-            background: var(--link-color);
-        }
-        body.dark-mode .toggle-audio {
-            color: var(--text-color) !important;
-        }
-        body.dark-mode .toggle-audio:hover {
-            /* background-color: rgba(var(--text-color-rgb), 0.1); <= REMOVED */
-        }
-
-        /* --- Responsive Styles --- */
-        @media screen and (max-width: 768px) {
-            #header { padding: 10px 15px; position: relative; }
-            #logo img { height: 30px; }
-            #menuToggle { display: block; }
-
-            #nav {
-                display: none; flex-direction: column; width: 100%;
-                background-color: var(--header-bg-color); position: absolute;
-                top: 100%; left: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                padding-bottom: 10px;
-            }
-            #nav.active { display: flex; }
-            #nav a { margin: 5px 0; padding: 12px 15px; text-align: center; width: 90%; margin-left: auto; margin-right: auto; }
-
-            main { padding: 10px; margin-top: 10px; }
-            section { margin-bottom: 20px; padding: 15px; }
-
-            h1 { font-size: 1.5em; padding-bottom: 8px; border-bottom-width: 1px; }
-            h2 { font-size: 1.2em; }
-            p { font-size: 0.95em; margin-bottom: 10px; }
-
-            button, .button-link {
-                padding: 10px 20px; font-size: 0.95em; margin-top: 8px;
-            }
-            #discord .button-link, #jokes .button-link, #tools .button-link,
-            #os .button-link, #aistory .button-link, #bwap .button-link {
-                display: block; width: 100%; box-sizing: border-box;
-            }
-
-            /* Responsive custom player */
-            .custom-audio-player { flex-wrap: wrap; gap: 8px; }
-            .seek-bar { order: 1; width: 100%; flex-basis: 100%; }
-            .time-display { font-size: 0.85em; }
-            .custom-audio-player button { font-size: 1.1em; }
-            .volume-slider { max-width: 60px; }
-            .audio-entry.visible .audio-player-container {
-                max-height: 200px; /* Allow more height when wrapped */
-            }
-            .toggle-audio { font-size: 0.9em; padding: 10px 12px; }
-
-            #dark-mode-switch {
-                bottom: 15px; right: 15px; width: 45px; height: 45px; font-size: 20px;
-            }
+        #fixButton:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            border-color: #bbbbbb;
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
-    <div id="header">
-        <a href="https://wilsoncissel.com" id="logo">
-            <img src="https://wilsoncissel.com/pic.png" alt="Wilson Cissel Logo">
-        </a>
-        <button id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">☰</button>
-        <nav id="nav">
-            <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="dis">Discord Server</a>
-            <a href="https://www.youtube.com/channel/UCPYSD7MuRchbFEr-ZcoAaxw/featured" target="_blank" class="yt">Youtube</a>
-            <a href="http://mixerdude.com/" target="_blank">mixerdude.com</a>
-        </nav>
+    <div id="info">
+        Click light switch to toggle light<br>
+        Click fan switch to toggle fan<br>
+        Use +/- buttons to adjust fan speed when on<br>
+        Press 'B' twice to break light, then fix with button<br>
+        Click radio to play/stop music<br>
+        Click ball to kick, 'M' to reset<br>
+        Click clock to speed up briefly<br>
+        Click plant to grow<br>
+        Click lamp to toggle light<br>
+        Click notebook to open/close<br>
+        Click pen to spin<br>
+        Click chalkboard to draw, 'C' to toggle chalk/eraser, 'X' to clear<br>
+        Press 'R' to reset everything<br>
+        <a href="https://wilsoncissel.com" target="_blank">Made by Wilson Cissel</a><br>
+        <button id="hideButton" onclick="toggleInfo()">Hide</button>
     </div>
-
-    <main>
-        <section id="intro">
-            <h1>Welcome</h1>
-            <p>Welcome to my personal website! Here I showcase my various projects, creations, and links.</p>
-            <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
-        </section>
-
-
-        <section id="crypt">
-            <h1>(NEW!) Explore Cryptography</h1>
-            <p>Want to know the basic methods of cryptography? Enjoy this interactive guide.</p>
-            <a href="https://cryptography.wilsoncissel.com" target="_blank" class="button-link">
-                Explore Cryptography
-            </a>
-        </section>
-
-
-        <section id="bwap">
-            <h1>BWAP - Button With A Personality</h1>
-            <p>Interact with a quirky button that reacts to your clicks with humor, surprises, and mini-games. How many clicks can you handle before it gives up?</p>
-            <a href="https://bwap.wilsoncissel.com" target="_blank" class="button-link">
-                Play BWAP
-            </a>
-        </section>
-
-
-        <section id="buttongame">
-            <h1>Cityle</h1>
-            <p>Play this cool game where you guess what the correct city is.</p>
-            <a href="https://worldle.wilsoncissel.com" target="_blank" class="button-link">
-                Play Worldle
-            </a>
-        </section>
-
-        <section id="buttongame">
-            <h1>Whack the Button Game</h1>
-            <p>Play this cool button game to see how many buttons you can press. Set up time attack mode to see how many you can beat in that time. Turn on Expert Mode for a bit of a harder (but not much harder) game.</p>
-            <a href="https://buttongame.wilsoncissel.com" target="_blank" class="button-link">
-                Play Whack the Button
-            </a>
-        </section>
-
-        <section id="aistory">
-            <h1>AI Story Choice</h1>
-            <p>Explore interactive stories powered by AI. Make choices and see where the narrative takes you!</p>
-            <a href="https://aistory.wilsoncissel.com" target="_blank" class="button-link">
-                Explore AI Stories
-            </a>
-        </section>
-
-        
-
-        <section id="discord">
-            <h1>Discord Server</h1>
-            <p>Join the community! Connect with others, discuss projects, and stay updated.</p>
-            <a href="https://discord.gg/QMYfmSkchY" target="_blank" class="button-link disco">
-                Join my Discord Server
-            </a>
-        </section>
-
-        <section id="music">
-            <h1>Music</h1>
-            <p>Check out some of the music I've produced (click to show player):</p>
-
-            <div class="audio-entry">
-                <button class="toggle-audio" aria-expanded="false">
-                    Wilson's Song 1
-                    <span class="toggle-icon">+</span>
-                </button>
-                <div class="audio-player-container">
-                    <audio preload="metadata">
-                        <source src="https://wilsoncissel.com/Wilsonsong.m4a" type="audio/mp4">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="custom-audio-player">
-                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                        <div class="time-display current-time">0:00</div>
-                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                        <div class="time-display total-duration">0:00</div>
-                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                    </div>
-                </div>
-            </div>
-
-            <div class="audio-entry">
-                <button class="toggle-audio" aria-expanded="false">
-                    Wilson's Song 2
-                    <span class="toggle-icon">+</span>
-                </button>
-                <div class="audio-player-container">
-                    <audio preload="metadata">
-                        <source src="https://wilsoncissel.com/wilsonsong2.m4a" type="audio/mp4">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="custom-audio-player">
-                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                        <div class="time-display current-time">0:00</div>
-                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                        <div class="time-display total-duration">0:00</div>
-                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                    </div>
-                </div>
-            </div>
-
-            <div class="audio-entry">
-                <button class="toggle-audio" aria-expanded="false">
-                    Wilson's Song 3
-                    <span class="toggle-icon">+</span>
-                </button>
-                <div class="audio-player-container">
-                    <audio preload="metadata">
-                        <source src="https://wilsoncissel.com/Wilsonsong3.m4a" type="audio/mp4">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="custom-audio-player">
-                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                        <div class="time-display current-time">0:00</div>
-                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                        <div class="time-display total-duration">0:00</div>
-                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                    </div>
-                </div>
-            </div>
-
-            <div class="audio-entry">
-                <button class="toggle-audio" aria-expanded="false">
-                    Wilson's Song 4
-                    <span class="toggle-icon">+</span>
-                </button>
-                <div class="audio-player-container">
-                    <audio preload="metadata">
-                        <source src="https://wilsoncissel.com/Wilsonsong4.m4a" type="audio/mp4">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="custom-audio-player">
-                        <button class="play-pause-btn" aria-label="Play"><i class="fas fa-play"></i></button>
-                        <div class="time-display current-time">0:00</div>
-                        <input type="range" class="seek-bar" value="0" step="0.1" aria-label="Seek Progress">
-                        <div class="time-display total-duration">0:00</div>
-                        <button class="volume-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-                        <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="jokes">
-            <h1>Jokes Website</h1>
-            <p>Need a laugh? Check out my brand new jokes website.</p>
-            <a href="https://joke.wilsoncissel.com/" target="_blank" class="button-link">
-                Visit Jokes Site
-            </a>
-        </section>
-
-        <section id="tools">
-            <h1>Windows Tools</h1>
-            <div class="tool-item" style="margin-bottom: 20px;">
-                <h2>QR Code Maker</h2>
-                <p>A simple tool I made for Windows to generate QR codes easily.</p>
-                <a href="https://download.wilsoncissel.com/qr.html" target="_blank" class="button-link">
-                    Download QR Code Generator
-                </a>
-            </div>
-            <div class="tool-item">
-                <h2>Local WeMo Controller</h2>
-                <p>Control any local WeMo smart device directly using its IP Address with this Windows application.</p>
-                <a href="https://download.wilsoncissel.com/wemo.html" target="_blank" class="button-link">
-                    Download WeMo Device Controller
-                </a>
-            </div>
-        </section>
-
-        <section id="os">
-            <h1>Wilo OS</h1>
-            <p>Explore Wilo OS 8, my operating system concept built entirely within Google Slides.</p>
-            <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank" class="button-link">
-                Open Wilo OS 8
-            </a>
-        </section>
-    </main>
-
-    <div id="dark-mode-switch" onclick="toggleDarkMode()" title="Toggle Dark Mode">
-        <i id="mode-icon" class="fas fa-moon"></i>
-    </div>
-
+    <button id="fixButton" onclick="fixLight()">Fix Light</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- Setup ---
-        const body = document.body;
-        const modeIcon = document.getElementById('mode-icon');
-        const themeMeta = document.getElementById('theme-color-meta');
-        const menuToggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('nav');
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        // --- Theme Handling ---
-        function setTheme(theme) {
-            if (theme === 'dark') {
-                body.classList.add('dark-mode');
-                if (modeIcon) modeIcon.classList.replace('fa-moon', 'fa-sun');
-                if (themeMeta) themeMeta.content = '#1a1a1a';
-                localStorage.setItem('theme', 'dark');
+        // Audio setup
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        // Room dimensions
+        const roomWidth = 10;
+        const roomHeight = 5;
+        const roomDepth = 10;
+
+        // Walls, ceiling, and floor
+        const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xe6d5b8 });
+        const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x8b5a2b });
+        const ceilingMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+
+        const floorGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = -roomHeight / 2;
+        scene.add(floor);
+
+        const ceilingGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
+        const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+        ceiling.rotation.x = Math.PI / 2;
+        ceiling.position.y = roomHeight / 2;
+        scene.add(ceiling);
+
+        const backWallGeometry = new THREE.PlaneGeometry(roomWidth, roomHeight);
+        const backWall = new THREE.Mesh(backWallGeometry, wallMaterial);
+        backWall.position.z = -roomDepth / 2;
+        scene.add(backWall);
+
+        const leftWallGeometry = new THREE.PlaneGeometry(roomDepth, roomHeight);
+        const leftWall = new THREE.Mesh(leftWallGeometry, wallMaterial);
+        leftWall.rotation.y = Math.PI / 2;
+        leftWall.position.x = -roomWidth / 2;
+        scene.add(leftWall);
+
+        const rightWallGeometry = new THREE.PlaneGeometry(roomDepth, roomHeight);
+        const rightWall = new THREE.Mesh(rightWallGeometry, wallMaterial);
+        rightWall.rotation.y = -Math.PI / 2;
+        rightWall.position.x = roomWidth / 2;
+        scene.add(rightWall);
+
+        // Door on left wall
+        const doorGeometry = new THREE.PlaneGeometry(2, 4);
+        const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x4a2c2a });
+        const door = new THREE.Mesh(doorGeometry, doorMaterial);
+        door.position.set(-roomWidth / 2 + 0.01, -0.5, -1);
+        door.rotation.y = Math.PI / 2;
+        scene.add(door);
+
+        const handleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.3, 32);
+        const handleMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+        const handle = new THREE.Mesh(handleGeometry, handleMaterial);
+        handle.rotation.z = Math.PI / 2;
+        handle.position.set(-0.7, 0, 0);
+        door.add(handle);
+
+        // Bed in the center of the back wall
+        const bedGroup = new THREE.Group();
+        const bedFrameGeometry = new THREE.BoxGeometry(3, 1, 4);
+        const bedMaterial = new THREE.MeshStandardMaterial({ color: 0x5c4033 });
+        const bedFrame = new THREE.Mesh(bedFrameGeometry, bedMaterial);
+        bedFrame.position.set(0, 0.5, 0);
+        bedGroup.add(bedFrame);
+
+        const mattressGeometry = new THREE.BoxGeometry(2.8, 0.3, 3.8);
+        const mattressMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        const mattress = new THREE.Mesh(mattressGeometry, mattressMaterial);
+        mattress.position.set(0, 0.65, 0);
+        mattress.visible = true;
+        bedGroup.add(mattress);
+
+        const headboardGeometry = new THREE.BoxGeometry(3, 0.5, 0.2);
+        const headboard = new THREE.Mesh(headboardGeometry, bedMaterial);
+        headboard.position.set(0, 0.75, 2);
+        bedGroup.add(headboard);
+
+        const pillowGeometry = new THREE.BoxGeometry(0.8, 0.2, 0.5);
+        const pillowMaterial = new THREE.MeshStandardMaterial({ color: 0x87ceeb });
+        const pillow1 = new THREE.Mesh(pillowGeometry, pillowMaterial);
+        pillow1.position.set(-0.8, 0.85, 1.5);
+        pillow1.visible = true;
+        bedGroup.add(pillow1);
+
+        const pillow2 = new THREE.Mesh(pillowGeometry, pillowMaterial);
+        pillow2.position.set(0.8, 0.85, 1.5);
+        pillow2.visible = true;
+        bedGroup.add(pillow2);
+
+        const pillow3 = new THREE.Mesh(pillowGeometry, pillowMaterial);
+        pillow3.position.set(-0.8, 0.85, 0.9);
+        pillow3.visible = true;
+        bedGroup.add(pillow3);
+
+        const pillow4 = new THREE.Mesh(pillowGeometry, pillowMaterial);
+        pillow4.position.set(0.8, 0.85, 0.9);
+        pillow4.visible = true;
+        bedGroup.add(pillow4);
+
+        const blanketGeometry = new THREE.PlaneGeometry(2.8, 3.8);
+        const blanketMaterial = new THREE.MeshStandardMaterial({ color: 0x228b22, side: THREE.DoubleSide });
+        const blanket = new THREE.Mesh(blanketGeometry, blanketMaterial);
+        blanket.position.set(0, 0.81, -0.1);
+        blanket.rotation.x = -Math.PI / 2;
+        blanket.visible = true;
+        bedGroup.add(blanket);
+
+        bedGroup.position.set(0, -roomHeight / 2, -roomDepth / 2 + 2);
+        bedGroup.visible = true;
+        scene.add(bedGroup);
+
+        // Picture frame on right wall (top, chalkboard)
+        const frameGeometry = new THREE.PlaneGeometry(2.2, 1.7);
+        const frameMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+        const frame = new THREE.Mesh(frameGeometry, frameMaterial);
+        frame.position.set(roomWidth / 2 - 0.02, 1, -1);
+        frame.rotation.y = -Math.PI / 2;
+        scene.add(frame);
+
+        const chalkboardCanvas = document.createElement('canvas');
+        chalkboardCanvas.width = 512;
+        chalkboardCanvas.height = 384;
+        const chalkboardCtx = chalkboardCanvas.getContext('2d');
+        chalkboardCtx.fillStyle = '#228b22';
+        chalkboardCtx.fillRect(0, 0, chalkboardCanvas.width, chalkboardCanvas.height);
+        const chalkboardTexture = new THREE.CanvasTexture(chalkboardCanvas);
+        const pictureMaterial = new THREE.MeshStandardMaterial({ map: chalkboardTexture });
+        const picture = new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), pictureMaterial);
+        picture.position.set(roomWidth / 2 - 0.03, 1, -1);
+        picture.rotation.y = -Math.PI / 2;
+        scene.add(picture);
+
+        // Additional Wall Decoration 1: Shelf with Vase on back wall
+        const wallShelfGeometry = new THREE.BoxGeometry(1.5, 0.1, 0.3);
+        const shelfMaterial = new THREE.MeshStandardMaterial({ color: 0x5c4033 });
+        const wallShelf = new THREE.Mesh(wallShelfGeometry, shelfMaterial);
+        wallShelf.position.set(-2, 1.5, -roomDepth / 2 + 0.02);
+        scene.add(wallShelf);
+
+        const vaseGeometry = new THREE.CylinderGeometry(0.1, 0.15, 0.4, 32);
+        const vaseMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+        const vase = new THREE.Mesh(vaseGeometry, vaseMaterial);
+        vase.position.set(-2, 1.65, -roomDepth / 2 + 0.02);
+        scene.add(vase);
+
+        // Relocated Decoration: Mirror on back wall (right of shelf)
+        const mirrorFrameGeometry = new THREE.PlaneGeometry(1.5, 1);
+        const mirrorFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+        const mirrorFrame = new THREE.Mesh(mirrorFrameGeometry, mirrorFrameMaterial);
+        mirrorFrame.position.set(2, 1.5, -roomDepth / 2 + 0.02);
+        scene.add(mirrorFrame);
+
+        const mirrorGeometry = new THREE.PlaneGeometry(1.3, 0.8);
+        const mirrorMaterial = new THREE.MeshStandardMaterial({ color: 0xb0e0e6 });
+        const mirror = new THREE.Mesh(mirrorGeometry, mirrorMaterial);
+        mirror.position.set(2, 1.5, -roomDepth / 2 + 0.03);
+        scene.add(mirror);
+
+        // Additional Wall Decoration 2: Second Painting on right wall (bottom, orange with text)
+        const frame2Geometry = new THREE.PlaneGeometry(1.5, 1);
+        const frame2 = new THREE.Mesh(frame2Geometry, frameMaterial);
+        frame2.position.set(roomWidth / 2 - 0.02, -0.5, -1);
+        frame2.rotation.y = -Math.PI / 2;
+        scene.add(frame2);
+
+        const picture2Canvas = document.createElement('canvas');
+        picture2Canvas.width = 512;
+        picture2Canvas.height = 320;
+        const picture2Ctx = picture2Canvas.getContext('2d');
+        const quoteText = "Dream big, work hard, stay focused.";
+        function updatePicture2Text(text) {
+            picture2Ctx.fillStyle = '#ffa500';
+            picture2Ctx.fillRect(0, 0, picture2Canvas.width, picture2Canvas.height);
+            picture2Ctx.font = '36px Arial';
+            picture2Ctx.textAlign = 'center';
+            picture2Ctx.textBaseline = 'middle';
+            picture2Ctx.fillStyle = '#000000';
+            picture2Ctx.strokeStyle = '#ffffff';
+            picture2Ctx.lineWidth = 2;
+            picture2Ctx.strokeText(text, picture2Canvas.width / 2, picture2Canvas.height / 2);
+            picture2Ctx.fillText(text, picture2Canvas.width / 2, picture2Canvas.height / 2);
+            picture2Texture.needsUpdate = true;
+        }
+        const picture2Texture = new THREE.CanvasTexture(picture2Canvas);
+        const picture2Material = new THREE.MeshStandardMaterial({ map: picture2Texture });
+        const picture2 = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.8), picture2Material);
+        picture2.position.set(roomWidth / 2 - 0.03, -0.5, -1);
+        picture2.rotation.y = -Math.PI / 2;
+        scene.add(picture2);
+        updatePicture2Text(quoteText);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffff00, 0, 100);
+        pointLight.position.set(-1.5, roomHeight / 2 - 0.3, 0);
+        scene.add(pointLight);
+
+        // Light fixture
+        const fixtureGroup = new THREE.Group();
+        const fixtureBaseGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
+        const fixtureMaterial = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+        const fixtureBase = new THREE.Mesh(fixtureBaseGeometry, fixtureMaterial);
+        fixtureBase.position.set(0, -0.05, 0);
+        fixtureGroup.add(fixtureBase);
+
+        const bulbGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+        const bulbMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00, emissive: 0x000000 });
+        const bulb = new THREE.Mesh(bulbGeometry, bulbMaterial);
+        bulb.position.set(0, -0.2, 0);
+        fixtureGroup.add(bulb);
+
+        let bulbFragments = [];
+        function createBulbFragments() {
+            bulbFragments.forEach(fragment => scene.remove(fragment));
+            bulbFragments = [];
+            const fragmentGeometry = new THREE.SphereGeometry(0.05, 16, 16);
+            const fragmentMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00 });
+            for (let i = 0; i < 8; i++) {
+                const fragment = new THREE.Mesh(fragmentGeometry, fragmentMaterial);
+                fragment.position.set(-1.5, -roomHeight / 2, 0);
+                fragment.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.1,
+                    Math.random() * 0.1,
+                    (Math.random() - 0.5) * 0.1
+                );
+                fragment.visible = false;
+                scene.add(fragment);
+                bulbFragments.push(fragment);
+            }
+        }
+        createBulbFragments();
+
+        // Sound effects
+        const breakSound = new THREE.Audio(listener);
+        scene.add(breakSound);
+        const breakSoundLoader = new THREE.AudioLoader();
+        const breakSoundUrl = 'https://room.wilsoncissel.com/glass.mp3';
+        breakSoundLoader.load(breakSoundUrl, function(buffer) {
+            breakSound.setBuffer(buffer);
+            breakSound.setVolume(0.5);
+        });
+
+        const switchSound = new THREE.Audio(listener);
+        scene.add(switchSound);
+        const switchSoundLoader = new THREE.AudioLoader();
+        const switchSoundUrl = 'https://room.wilsoncissel.com/switch.mp3';
+        switchSoundLoader.load(switchSoundUrl, function(buffer) {
+            switchSound.setBuffer(buffer);
+            switchSound.setVolume(0.5);
+        });
+
+        const lampSound = new THREE.Audio(listener);
+        scene.add(lampSound);
+        const lampSoundLoader = new THREE.AudioLoader();
+        const lampSoundUrl = 'https://room.wilsoncissel.com/lamp.mp3';
+        lampSoundLoader.load(lampSoundUrl, function(buffer) {
+            lampSound.setBuffer(buffer);
+            lampSound.setVolume(0.5);
+        });
+
+        const bounceSound = new THREE.Audio(listener);
+        scene.add(bounceSound);
+        const bounceSoundLoader = new THREE.AudioLoader();
+        const bounceSoundUrl = 'https://room.wilsoncissel.com/bounce.mp3';
+        bounceSoundLoader.load(bounceSoundUrl, function(buffer) {
+            bounceSound.setBuffer(buffer);
+            bounceSound.setVolume(0.3);
+        });
+
+        fixtureGroup.position.set(-1.5, roomHeight / 2 - 0.1, 0);
+        scene.add(fixtureGroup);
+
+        // Fan
+        const fanGroup = new THREE.Group();
+        const fanBaseGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.15, 32);
+        const fanMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });
+        const fanBase = new THREE.Mesh(fanBaseGeometry, fanMaterial);
+        fanGroup.add(fanBase);
+
+        const bladeGeometry = new THREE.PlaneGeometry(0.75, 0.3);
+        const bladeMaterial = new THREE.MeshStandardMaterial({ color: 0x666666, side: THREE.DoubleSide });
+        for (let i = 0; i < 2; i++) {
+            const blade = new THREE.Mesh(bladeGeometry, bladeMaterial);
+            blade.rotation.z = i * Math.PI;
+            blade.position.set(0.45 * Math.cos(i * Math.PI), 0, 0.45 * Math.sin(i * Math.PI));
+            fanGroup.add(blade);
+        }
+        fanGroup.position.set(1.5, roomHeight / 2 - 0.5, 0);
+        scene.add(fanGroup);
+
+        // Table in bottom-right corner
+        const tableGroup = new THREE.Group();
+        const tableMaterial = new THREE.MeshStandardMaterial({ color: 0x5c4033 });
+
+        const tableTopGeometry = new THREE.BoxGeometry(1.5, 0.2, 1);
+        const tableTop = new THREE.Mesh(tableTopGeometry, tableMaterial);
+        tableTop.position.set(0, 0.6, 0);
+        tableGroup.add(tableTop);
+
+        const legGeometry = new THREE.CylinderGeometry(0.08, 0.08, 1.2, 32);
+        for (let i = 0; i < 4; i++) {
+            const leg = new THREE.Mesh(legGeometry, tableMaterial);
+            leg.position.set(
+                (i % 2 === 0 ? -0.6 : 0.6),
+                0,
+                (i < 2 ? -0.4 : 0.4)
+            );
+            tableGroup.add(leg);
+        }
+
+        const shelfGeometry = new THREE.BoxGeometry(1.3, 0.1, 0.8);
+        const shelf = new THREE.Mesh(shelfGeometry, tableMaterial);
+        shelf.position.set(0, -0.3, 0);
+        tableGroup.add(shelf);
+
+        tableGroup.position.set(roomWidth / 2 - 0.9, -roomHeight / 2 + 0.6, -roomDepth / 2 + 0.6);
+        scene.add(tableGroup);
+
+        const tableTopSurfaceY = -roomHeight / 2 + 1.3;
+
+        // Interactive Object 1: Radio on top of the table (right side)
+        const radioGeometry = new THREE.BoxGeometry(0.5, 0.3, 0.3);
+        const radioMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
+        const radio = new THREE.Mesh(radioGeometry, radioMaterial);
+        radio.position.set(roomWidth / 2 - 0.9 + 0.5, tableTopSurfaceY + 0.15, -roomDepth / 2 + 0.6);
+        scene.add(radio);
+
+        const radioAudio = new THREE.PositionalAudio(listener);
+        radio.add(radioAudio);
+
+        const audioUrls = [
+            'https://www.wilsoncissel.com/WilsonSong.m4a',
+            'https://www.wilsoncissel.com/WilsonSong2.m4a',
+            'https://www.wilsoncissel.com/wilsonsong3.m4a',
+            'https://www.wilsoncissel.com/wilsonsong4.m4a'
+        ];
+        const audioBuffers = [];
+        const audioLoader = new THREE.AudioLoader();
+        audioUrls.forEach(url => {
+            audioLoader.load(url, function(buffer) {
+                audioBuffers.push(buffer);
+            });
+        });
+        let currentTrackIndex = 0;
+
+        // Interactive Object 2: Ball on the floor
+        const ballGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+        const ballMaterial = new THREE.MeshStandardMaterial({ color: 0xff5555 });
+        const ball = new THREE.Mesh(ballGeometry, ballMaterial);
+        ball.position.set(-1, -roomHeight / 2 + 0.2, 1);
+        ball.visible = true;
+        scene.add(ball);
+
+        // Interactive Object 3: Wall Clock on back wall
+        const clockGeometry = new THREE.CircleGeometry(0.5, 32);
+        const clockMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        const clock = new THREE.Mesh(clockGeometry, clockMaterial);
+        clock.position.set(0, 2, -roomDepth / 2 + 0.02);
+        scene.add(clock);
+
+        const clockHandGeometry = new THREE.BoxGeometry(0.05, 0.3, 0.01);
+        const clockHandMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+        const clockHand = new THREE.Mesh(clockHandGeometry, clockHandMaterial);
+        clockHand.position.set(0, 0.15, 0.03);
+        clock.add(clockHand);
+
+        // Interactive Object 4: Small Plant Pot in upper-left corner
+        const potGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.3, 32);
+        const potMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+        const pot = new THREE.Mesh(potGeometry, potMaterial);
+        pot.position.set(-roomWidth / 2 + 0.3, -roomHeight / 2 + 0.15, roomDepth / 2 - 0.3);
+        pot.visible = true;
+        scene.add(pot);
+
+        const plantGeometry = new THREE.ConeGeometry(0.2, 0.4, 32);
+        const plantMaterial = new THREE.MeshStandardMaterial({ color: 0x228b22 });
+        const plant = new THREE.Mesh(plantGeometry, plantMaterial);
+        plant.position.set(0, 0.35, 0);
+        plant.visible = true;
+        pot.add(plant);
+
+        // Interactive Object 5: Lamp on the table (left side)
+        const lampGroup = new THREE.Group();
+        const lampBaseGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32);
+        const lampMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+        const lampBase = new THREE.Mesh(lampBaseGeometry, lampMaterial);
+        lampGroup.add(lampBase);
+
+        const lampPoleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.8, 32);
+        const lampPole = new THREE.Mesh(lampPoleGeometry, lampMaterial);
+        lampPole.position.set(0, 0.45, 0);
+        lampGroup.add(lampPole);
+
+        const lampShadeGeometry = new THREE.ConeGeometry(0.3, 0.4, 32);
+        const lampShadeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+        const lampShade = new THREE.Mesh(lampShadeGeometry, lampShadeMaterial);
+        lampShade.position.set(0, 0.9, 0);
+        lampGroup.add(lampShade);
+
+        const lampLight = new THREE.PointLight(0xffddaa, 0, 50);
+        lampLight.position.set(0, 0.9, 0);
+        lampGroup.add(lampLight);
+
+        lampGroup.position.set(roomWidth / 2 - 0.9 - 0.5, tableTopSurfaceY + 0.05, -roomDepth / 2 + 0.6);
+        scene.add(lampGroup);
+
+        // Interactive Object 6: Notebook on the table (back center)
+        const notebookGeometry = new THREE.BoxGeometry(0.3, 0.05, 0.2);
+        const notebookMaterial = new THREE.MeshStandardMaterial({ color: 0x000080 });
+        const notebook = new THREE.Mesh(notebookGeometry, notebookMaterial);
+        notebook.position.set(roomWidth / 2 - 0.9, tableTopSurfaceY + 0.025, -roomDepth / 2 + 0.6 - 0.3);
+        scene.add(notebook);
+
+        // Interactive Object 7: Pen on the table (right center)
+        const penGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.2, 32);
+        const penMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+        const pen = new THREE.Mesh(penGeometry, penMaterial);
+        pen.rotation.x = Math.PI / 2;
+        pen.position.set(roomWidth / 2 - 0.9, tableTopSurfaceY + 0.02, -roomDepth / 2 + 0.6 + 0.3);
+        scene.add(pen);
+
+        // Switch plate for light
+        const lightPlateGeometry = new THREE.BoxGeometry(1, 1.5, 0.1);
+        const plateMaterial = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+        const lightPlate = new THREE.Mesh(lightPlateGeometry, plateMaterial);
+        lightPlate.position.set(-1.5, 0, -roomDepth / 2 + 0.05);
+        scene.add(lightPlate);
+
+        const switchGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+        const switchMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        const lightSwitch = new THREE.Mesh(switchGeometry, switchMaterial);
+        lightSwitch.position.set(-1.5, 0, -roomDepth / 2 + 0.2);
+        scene.add(lightSwitch);
+
+        // Switch plate for fan
+        const fanPlateGeometry = new THREE.BoxGeometry(2, 1.5, 0.1);
+        const fanPlate = new THREE.Mesh(fanPlateGeometry, plateMaterial);
+        fanPlate.position.set(1.5, 0, -roomDepth / 2 + 0.05);
+        scene.add(fanPlate);
+
+        const fanSwitch = new THREE.Mesh(switchGeometry, switchMaterial);
+        fanSwitch.position.set(1, 0, -roomDepth / 2 + 0.2);
+        scene.add(fanSwitch);
+
+        // Fan speed display
+        const screenGeometry = new THREE.PlaneGeometry(0.4, 0.2);
+        const screenMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+        screen.position.set(2, 0, -roomDepth / 2 + 0.2);
+        scene.add(screen);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 128;
+        const ctx = canvas.getContext('2d');
+        const textTexture = new THREE.CanvasTexture(canvas);
+        const textMaterial = new THREE.MeshBasicMaterial({ map: textTexture, transparent: true });
+        const textMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.2), textMaterial);
+        textMesh.position.set(2, 0, -roomDepth / 2 + 0.21);
+        scene.add(textMesh);
+
+        function updateSpeedText(speed) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.font = '60px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`Speed: ${speed}`, canvas.width / 2, canvas.height / 2);
+            textTexture.needsUpdate = true;
+        }
+
+        // Speed control buttons
+        const buttonGeometry = new THREE.BoxGeometry(0.15, 0.15, 0.1);
+        const buttonMaterial = new THREE.MeshStandardMaterial({ color: 0x666666 });
+        const plusButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+        plusButton.position.set(2, 0.3, -roomDepth / 2 + 0.2);
+        scene.add(plusButton);
+
+        const minusButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+        minusButton.position.set(2, -0.3, -roomDepth / 2 + 0.2);
+        scene.add(minusButton);
+
+        const plusLabelCanvas = document.createElement('canvas');
+        plusLabelCanvas.width = 64;
+        plusLabelCanvas.height = 64;
+        const plusCtx = plusLabelCanvas.getContext('2d');
+        plusCtx.fillStyle = 'white';
+        plusCtx.font = '40px Arial';
+        plusCtx.textAlign = 'center';
+        plusCtx.textBaseline = 'middle';
+        plusCtx.fillText('+', 32, 32);
+        const plusLabelTexture = new THREE.CanvasTexture(plusLabelCanvas);
+        const plusLabelMaterial = new THREE.MeshBasicMaterial({ map: plusLabelTexture, transparent: true });
+        const plusLabel = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 0.15), plusLabelMaterial);
+        plusLabel.position.set(2, 0.3, -roomDepth / 2 + 0.21);
+        scene.add(plusLabel);
+        
+        const minusLabelCanvas = document.createElement('canvas');
+        minusLabelCanvas.width = 64;
+        minusLabelCanvas.height = 64;
+        const minusCtx = minusLabelCanvas.getContext('2d');
+        minusCtx.fillStyle = 'white';
+        minusCtx.font = '40px Arial';
+        minusCtx.textAlign = 'center';
+        minusCtx.textBaseline = 'middle';
+        minusCtx.fillText('-', 32, 32);
+        const minusLabelTexture = new THREE.CanvasTexture(minusLabelCanvas);
+        const minusLabelMaterial = new THREE.MeshBasicMaterial({ map: minusLabelTexture, transparent: true });
+        const minusLabel = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 0.15), minusLabelMaterial);
+        minusLabel.position.set(2, -0.3, -roomDepth / 2 + 0.21);
+        scene.add(minusLabel);
+
+        // Camera position
+        camera.position.set(0, 1, 6);
+        camera.lookAt(0, 0, -roomDepth / 2);
+
+        // Raycaster for interaction
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let isLightOn = false;
+        let isFanOn = false;
+        let fanSpeed = 0;
+        let isLightBroken = false;
+        let bPressCount = 0;
+        let lastBPressTime = 0;
+        let bulbFalling = false;
+        let bulbFallVelocity = 0;
+        const gravity = -0.05;
+        const floorY = -roomHeight / 2;
+
+        // Radio interaction variables
+        let isRadioPlaying = false;
+        let radioRotation = 0;
+
+        // Ball interaction variables
+        let ballVelocityX = 0;
+        let ballVelocityZ = 0;
+        let ballVelocityY = 0;
+        let ballBouncing = false;
+
+        // Clock interaction variables
+        let clockSpeed = 0.02;
+        let clockHandRotation = 0;
+        let clockSpeedTimer = 0;
+
+        // Plant interaction variables
+        let plantScale = 1;
+        let plantTargetScale = 1;
+        let plantGrowing = false;
+
+        // Lamp interaction variables
+        let isLampOn = false;
+
+        // Notebook interaction variables
+        let isNotebookOpen = false;
+        let notebookOpenness = 0;
+
+        // Pen interaction variables
+        let isPenSpinning = false;
+        let penSpinSpeed = 0;
+
+        // Bed interaction variables
+        let isBlanketOn = true;
+        let pillowScale = 1;
+        let pillowFluffing = false;
+
+        // Chalkboard interaction variables
+        let isChalkMode = true;
+        let isDrawing = false;
+        let lastMousePos = null;
+
+        updateSpeedText(fanSpeed);
+
+        // Reset functions
+        function resetBall() {
+            ball.position.set(-1, -roomHeight / 2 + 0.2, 1);
+            ballVelocityX = 0;
+            ballVelocityY = 0;
+            ballVelocityZ = 0;
+            ballBouncing = false;
+        }
+
+        function clearChalkboard() {
+            chalkboardCtx.fillStyle = '#228b22';
+            chalkboardCtx.fillRect(0, 0, chalkboardCanvas.width, chalkboardCanvas.height);
+            chalkboardTexture.needsUpdate = true;
+        }
+
+        function resetEverything() {
+            isLightOn = false;
+            pointLight.intensity = 0;
+            bulbMaterial.emissive.set(0x000000);
+            lightSwitch.rotation.x = Math.PI / 4;
+            isLightBroken = false;
+            bulbFalling = false;
+            bulb.position.set(0, -0.2, 0);
+            bulb.visible = true;
+            fixtureGroup.add(bulb);
+            createBulbFragments();
+            document.getElementById('fixButton').style.display = 'none';
+
+            isFanOn = false;
+            fanSwitch.rotation.x = Math.PI / 4;
+            fanSpeed = 0;
+            updateSpeedText(fanSpeed);
+
+            isRadioPlaying = false;
+            radioMaterial.color.set(0x444444);
+            if (radioAudio.isPlaying) {
+                radioAudio.stop();
+            }
+            radioRotation = 0;
+            radio.rotation.y = 0;
+            currentTrackIndex = 0;
+
+            resetBall();
+
+            clockSpeed = 0.02;
+            clockHandRotation = 0;
+            clockHand.rotation.z = 0;
+            clockSpeedTimer = 0;
+
+            plantScale = 1;
+            plantTargetScale = 1;
+            plantGrowing = false;
+            plant.scale.set(1, 1, 1);
+
+            isLampOn = false;
+            lampLight.intensity = 0;
+            lampShadeMaterial.emissive.set(0x000000);
+
+            isNotebookOpen = false;
+            notebookOpenness = 0;
+            notebook.rotation.x = 0;
+
+            isPenSpinning = false;
+            penSpinSpeed = 0;
+            pen.rotation.y = 0;
+
+            isBlanketOn = true;
+            blanket.visible = true;
+
+            pillowScale = 1;
+            pillowFluffing = false;
+            pillow1.scale.set(1, 1, 1);
+            pillow2.scale.set(1, 1, 1);
+            pillow3.scale.set(1, 1, 1);
+            pillow4.scale.set(1, 1, 1);
+
+            clearChalkboard();
+            isChalkMode = true;
+        }
+
+        // Collision detection function: Sphere vs AABB
+        function resolveSphereAABBCollision(spherePos, sphereRadius, aabbMin, aabbMax) {
+            let closestX = Math.max(aabbMin.x, Math.min(spherePos.x, aabbMax.x));
+            let closestY = Math.max(aabbMin.y, Math.min(spherePos.y, aabbMax.y));
+            let closestZ = Math.max(aabbMin.z, Math.min(spherePos.z, aabbMax.z));
+
+            let distanceX = spherePos.x - closestX;
+            let distanceY = spherePos.y - closestY;
+            let distanceZ = spherePos.z - closestZ;
+            const distanceSquared = distanceX * distanceX + distanceY * distanceY + distanceZ * distanceZ;
+
+            if (distanceSquared < (sphereRadius * sphereRadius)) {
+                const distance = Math.sqrt(distanceSquared);
+                const normalX = distance === 0 ? 0 : distanceX / distance;
+                const normalY = distance === 0 ? 0 : distanceY / distance;
+                const normalZ = distance === 0 ? 0 : distanceZ / distance;
+                
+                if (distance === 0) {
+                    const penetrationX = Math.min(Math.abs(spherePos.x - aabbMin.x), Math.abs(spherePos.x - aabbMax.x));
+                    const penetrationY = Math.min(Math.abs(spherePos.y - aabbMin.y), Math.abs(spherePos.y - aabbMax.y));
+                    const penetrationZ = Math.min(Math.abs(spherePos.z - aabbMin.z), Math.abs(spherePos.z - aabbMax.z));
+                    const minPenetration = Math.min(penetrationX, penetrationY, penetrationZ);
+
+                    if (minPenetration === penetrationX) {
+                        spherePos.x += (spherePos.x < (aabbMin.x + aabbMax.x) / 2 ? -penetrationX : penetrationX);
+                    } else if (minPenetration === penetrationY) {
+                         spherePos.y += (spherePos.y < (aabbMin.y + aabbMax.y) / 2 ? -penetrationY : penetrationY);
+                    } else {
+                         spherePos.z += (spherePos.z < (aabbMin.z + aabbMax.z) / 2 ? -penetrationZ : penetrationZ);
+                    }
+                } else {
+                    const penetrationDepth = sphereRadius - distance;
+                    spherePos.x += normalX * penetrationDepth;
+                    spherePos.y += normalY * penetrationDepth;
+                    spherePos.z += normalZ * penetrationDepth;
+                }
+
+                const dotProduct = (ballVelocityX * normalX + ballVelocityY * normalY + ballVelocityZ * normalZ);
+                ballVelocityX -= 2 * dotProduct * normalX * 0.8;
+                ballVelocityY -= 2 * dotProduct * normalY * 0.8;
+                ballVelocityZ -= 2 * dotProduct * normalZ * 0.8;
+            }
+        }
+
+       // Toggle info div visibility
+let isInfoVisible = true; // Initial state: info is visible
+window.toggleInfo = function() {
+    const infoDiv = document.getElementById('info');
+    const hideButton = document.getElementById('hideButton');
+    const contentElements = Array.from(infoDiv.children).filter(el => el.id !== 'hideButton');
+
+    isInfoVisible = !isInfoVisible; // Toggle the state
+
+    if (isInfoVisible) {
+        // Show the content
+        contentElements.forEach(el => el.style.display = '');
+        infoDiv.style.background = 'rgba(0, 0, 0, 0.7)';
+        hideButton.textContent = 'hide';
+    } else {
+        // Hide the content
+        contentElements.forEach(el => el.style.display = 'none');
+        infoDiv.style.background = 'transparent';
+        hideButton.textContent = 'show';
+    }
+}
+
+// Initialize the info div visibility on page load
+window.addEventListener('load', () => {
+    const infoDiv = document.getElementById('info');
+    const hideButton = document.getElementById('hideButton');
+    const contentElements = Array.from(infoDiv.children).filter(el => el.id !== 'hideButton');
+    hideButton.textContent = 'Hide'; // Set initial button text
+});
+
+        // Handle key presses
+        window.addEventListener('keydown', (event) => {
+            const key = event.key.toLowerCase();
+            if (key === 'b' && !isLightBroken) {
+                const currentTime = Date.now();
+                if (currentTime - lastBPressTime < 1000) {
+                    bPressCount++;
+                    if (bPressCount === 2) {
+                        breakLight();
+                        bPressCount = 0;
+                    }
+                } else {
+                    bPressCount = 1;
+                }
+                lastBPressTime = currentTime;
             } else {
-                body.classList.remove('dark-mode');
-                if (modeIcon) modeIcon.classList.replace('fa-sun', 'fa-moon');
-                if (themeMeta) themeMeta.content = '#F5F5F5';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        function toggleDarkMode() {
-            setTheme(body.classList.contains('dark-mode') ? 'light' : 'dark');
-        }
-
-        // --- Mobile Menu ---
-        if (menuToggle && nav) {
-            menuToggle.addEventListener('click', function() {
-                nav.classList.toggle('active');
-                const isExpanded = nav.classList.contains('active');
-                menuToggle.setAttribute('aria-expanded', isExpanded);
-            });
-
-            nav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
-                    }
-                });
-            });
-        } else {
-            console.warn("Mobile menu elements (#menuToggle or #nav) not found.");
-        }
-
-        // --- Collapsible Toggle Logic (Base) ---
-        document.querySelectorAll('.toggle-audio').forEach(button => {
-            button.addEventListener('click', () => {
-                const audioEntry = button.closest('.audio-entry');
-                if (!audioEntry) return;
-                const currentlyVisible = audioEntry.classList.contains('visible');
-
-                // Close other open players
-                document.querySelectorAll('.audio-entry.visible').forEach(visibleEntry => {
-                    if (visibleEntry !== audioEntry) {
-                        visibleEntry.classList.remove('visible');
-                        const otherButton = visibleEntry.querySelector('.toggle-audio');
-                        if (otherButton) {
-                            otherButton.setAttribute('aria-expanded', 'false');
-                            const otherIcon = otherButton.querySelector('.toggle-icon');
-                            if (otherIcon) otherIcon.textContent = '+';
-                        }
-                        const audioEl = visibleEntry.querySelector('audio');
-                        if (audioEl && !audioEl.paused) {
-                            audioEl.pause();
-                        }
-                    }
-                });
-
-                // Toggle the clicked one
-                audioEntry.classList.toggle('visible');
-                button.setAttribute('aria-expanded', !currentlyVisible);
-                const icon = button.querySelector('.toggle-icon');
-                if (icon) icon.textContent = currentlyVisible ? '+' : '−';
-
-                if (currentlyVisible) { // If closing
-                    const audioEl = audioEntry.querySelector('audio');
-                    if (audioEl && !audioEl.paused) {
-                        audioEl.pause();
-                    }
-                } else { // If opening
-                    initializeCustomPlayer(audioEntry); // Initialize its custom player
+                if (key === 'c') {
+                    isChalkMode = !isChalkMode;
+                } else if (key === 'x') {
+                    clearChalkboard();
+                } else if (key === 'm') {
+                    resetBall();
+                } else if (key === 'r') {
+                    resetEverything();
                 }
-            });
-        });
-
-        // --- Custom Audio Player Logic ---
-        function formatTime(seconds) {
-            if (isNaN(seconds) || seconds < 0) return '0:00';
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
-        function initializeCustomPlayer(audioEntry) {
-            const audio = audioEntry.querySelector('audio');
-            const playerUI = audioEntry.querySelector('.custom-audio-player');
-            if (!audio || !playerUI) return; // Essential elements check
-
-            // Prevent double initialization
-            if (playerUI.dataset.initialized === 'true') return;
-            playerUI.dataset.initialized = 'true'; // Mark as initialized
-
-            const playPauseBtn = playerUI.querySelector('.play-pause-btn');
-            const playPauseIcon = playPauseBtn?.querySelector('i');
-            const seekBar = playerUI.querySelector('.seek-bar');
-            const currentTimeEl = playerUI.querySelector('.current-time');
-            const totalDurationEl = playerUI.querySelector('.total-duration');
-            const volumeBtn = playerUI.querySelector('.volume-btn');
-            const volumeIcon = volumeBtn?.querySelector('i');
-            const volumeSlider = playerUI.querySelector('.volume-slider');
-
-            // Check if all necessary UI elements were found
-            if (!playPauseBtn || !playPauseIcon || !seekBar || !currentTimeEl || !totalDurationEl || !volumeBtn || !volumeIcon || !volumeSlider) {
-                console.error("One or more custom player UI elements missing in:", audioEntry);
-                playerUI.dataset.initialized = 'false'; // Reset if failed
-                return;
-            }
-
-            // --- Event Handlers for THIS player instance ---
-            const handlePlay = () => {
-                playPauseIcon.classList.replace('fa-play', 'fa-pause');
-                playPauseBtn.setAttribute('aria-label', 'Pause');
-            };
-            const handlePause = () => {
-                playPauseIcon.classList.replace('fa-pause', 'fa-play');
-                playPauseBtn.setAttribute('aria-label', 'Play');
-            };
-            const handleEnded = () => {
-                handlePause(); // Show play icon
-                audio.currentTime = 0; // Reset time
-                seekBar.value = 0; // Reset seek bar visually
-                currentTimeEl.textContent = formatTime(0); // Reset current time display
-            };
-            const handleMetadata = () => {
-                if (isFinite(audio.duration)) {
-                    seekBar.max = audio.duration;
-                    totalDurationEl.textContent = formatTime(audio.duration);
-                } else {
-                    totalDurationEl.textContent = '??:??'; // Indicate unknown duration
-                }
-            };
-            const handleTimeUpdate = () => {
-                if (isFinite(audio.duration)) {
-                    seekBar.value = audio.currentTime;
-                    currentTimeEl.textContent = formatTime(audio.currentTime);
-                }
-            };
-            const handleVolumeChange = () => {
-                volumeSlider.value = audio.volume; // Sync slider first
-                if (audio.muted || audio.volume === 0) {
-                    volumeIcon.className = 'fas fa-volume-mute'; // Use className for simplicity
-                    volumeBtn.setAttribute('aria-label', 'Unmute');
-                } else if (audio.volume < 0.5) {
-                    volumeIcon.className = 'fas fa-volume-down';
-                    volumeBtn.setAttribute('aria-label', 'Mute');
-                } else {
-                    volumeIcon.className = 'fas fa-volume-up';
-                    volumeBtn.setAttribute('aria-label', 'Mute');
-                }
-            };
-
-            // --- Add Event Listeners ---
-            playPauseBtn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
-            seekBar.addEventListener('input', () => { // Update display while scrubbing
-                if(isFinite(audio.duration)) currentTimeEl.textContent = formatTime(seekBar.value);
-            });
-            seekBar.addEventListener('change', () => { // Update audio time only on mouseup/change
-                if(isFinite(audio.duration)) audio.currentTime = seekBar.value;
-            });
-            volumeBtn.addEventListener('click', () => { audio.muted = !audio.muted; });
-            volumeSlider.addEventListener('input', () => {
-                audio.volume = volumeSlider.value;
-                if (audio.muted && audio.volume > 0) audio.muted = false; // Unmute if slider moved
-            });
-
-            audio.addEventListener('play', handlePlay);
-            audio.addEventListener('pause', handlePause);
-            audio.addEventListener('ended', handleEnded);
-            audio.addEventListener('loadedmetadata', handleMetadata);
-            audio.addEventListener('timeupdate', handleTimeUpdate);
-            audio.addEventListener('volumechange', handleVolumeChange);
-
-            // --- Initial State Setup ---
-            handleMetadata(); // Set initial duration if already loaded
-            handleVolumeChange(); // Set initial volume icon/slider state
-            handlePause(); // Ensure play icon is shown initially
-        } // End of initializeCustomPlayer
-
-        // --- Initial Theme Load ---
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else if (prefersDark) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-
-        // Listen for changes in system preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
             }
         });
+
+        function breakLight() {
+            isLightBroken = true;
+            bulbFalling = true;
+            bulbFallVelocity = 0;
+            pointLight.intensity = 0;
+            bulbMaterial.emissive.set(0x000000);
+            if (breakSound.isPlaying) {
+                breakSound.stop();
+            }
+            breakSound.play();
+            document.getElementById('fixButton').style.display = 'block';
+        }
+
+        window.fixLight = function() {
+            isLightBroken = false;
+            bulbFalling = false;
+            bulb.position.set(0, -0.2, 0);
+            bulb.visible = true;
+            fixtureGroup.add(bulb);
+            createBulbFragments();
+            if (isLightOn) {
+                pointLight.intensity = 1;
+                bulbMaterial.emissive.set(0xffff00);
+            }
+            document.getElementById('fixButton').style.display = 'none';
+        }
+
+        // Chalkboard drawing
+        function drawOnChalkboard(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(picture);
+            if (intersects.length > 0) {
+                const uv = intersects[0].uv;
+                const x = uv.x * chalkboardCanvas.width;
+                const y = (1 - uv.y) * chalkboardCanvas.height;
+                chalkboardCtx.beginPath();
+                if (lastMousePos) {
+                    chalkboardCtx.moveTo(lastMousePos.x, lastMousePos.y);
+                    chalkboardCtx.lineTo(x, y);
+                    chalkboardCtx.strokeStyle = isChalkMode ? '#ffffff' : '#228b22';
+                    chalkboardCtx.lineWidth = isChalkMode ? 5 : 10;
+                    chalkboardCtx.stroke();
+                } else {
+                    chalkboardCtx.arc(x, y, isChalkMode ? 2.5 : 5, 0, Math.PI * 2);
+                    chalkboardCtx.fillStyle = isChalkMode ? '#ffffff' : '#228b22';
+                    chalkboardCtx.fill();
+                }
+                chalkboardTexture.needsUpdate = true;
+                lastMousePos = { x, y };
+            }
+        }
+
+        window.addEventListener('mousedown', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(picture);
+            if (intersects.length > 0) {
+                isDrawing = true;
+                drawOnChalkboard(event);
+            } else {
+                onMouseClick(event);
+            }
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            if (isDrawing) {
+                drawOnChalkboard(event);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDrawing = false;
+            lastMousePos = null;
+        });
+
+        function onMouseClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects([
+                lightSwitch, fanSwitch, plusButton, minusButton,
+                radio, ball, clock, pot, lampBase, notebook, pen,
+                mattress, pillow1, pillow2, pillow3, pillow4
+            ]);
+
+            if (intersects.length > 0) {
+                const target = intersects[0].object;
+                if (target === lightSwitch && !isLightBroken) {
+                    isLightOn = !isLightOn;
+                    lightSwitch.rotation.x = isLightOn ? -Math.PI / 4 : Math.PI / 4;
+                    pointLight.intensity = isLightOn ? 1 : 0;
+                    bulbMaterial.emissive.set(isLightOn ? 0xffff00 : 0x000000);
+                    if (switchSound.isPlaying) {
+                        switchSound.stop();
+                    }
+                    switchSound.play();
+                } else if (target === fanSwitch) {
+                    isFanOn = !isFanOn;
+                    fanSwitch.rotation.x = isFanOn ? -Math.PI / 4 : Math.PI / 4;
+                    fanSpeed = isFanOn ? 1 : 0;
+                    updateSpeedText(fanSpeed);
+                } else if (target === plusButton && isFanOn) {
+                    if (fanSpeed < 3) {
+                        fanSpeed++;
+                        updateSpeedText(fanSpeed);
+                    }
+                } else if (target === minusButton && isFanOn) {
+                    if (fanSpeed > 1) {
+                        fanSpeed--;
+                        updateSpeedText(fanSpeed);
+                    }
+                } else if (target === radio) {
+                    isRadioPlaying = !isRadioPlaying;
+                    radioMaterial.color.set(isRadioPlaying ? 0xff5555 : 0x444444);
+                    if (isRadioPlaying) {
+                        if (audioBuffers.length > 0) {
+                            const buffer = audioBuffers[currentTrackIndex];
+                            if (buffer) {
+                                if(radioAudio.isPlaying) radioAudio.stop();
+                                radioAudio.setBuffer(buffer);
+                                radioAudio.play();
+                                currentTrackIndex = (currentTrackIndex + 1) % audioBuffers.length;
+                            }
+                        }
+                    } else {
+                        if (radioAudio.isPlaying) {
+                            radioAudio.stop();
+                        }
+                    }
+                } else if (target === ball) {
+                    ballBouncing = true;
+                    ballVelocityX = (Math.random() - 0.5) * 0.2;
+                    ballVelocityZ = (Math.random() - 0.5) * 0.2;
+                    ballVelocityY = 0.3;
+                } else if (target === clock) {
+                    clockSpeed = 0.1;
+                    clockSpeedTimer = 180;
+                } else if (target === pot) {
+                    plantTargetScale = plantTargetScale === 1 ? 2 : 1;
+                    plantGrowing = true;
+                } else if (target === lampBase) {
+                    isLampOn = !isLampOn;
+                    lampLight.intensity = isLampOn ? 1 : 0;
+                    lampShadeMaterial.emissive.set(isLampOn ? 0xffddaa : 0x000000);
+                    if (lampSound.isPlaying) {
+                        lampSound.stop();
+                    }
+                    lampSound.play();
+                } else if (target === notebook) {
+                    isNotebookOpen = !isNotebookOpen;
+                } else if (target === pen) {
+                    isPenSpinning = true;
+                    penSpinSpeed = 0.2;
+                } else if (target === mattress) {
+                    isBlanketOn = !isBlanketOn;
+                    blanket.visible = isBlanketOn;
+                } else if (target === pillow1 || target === pillow2 || target === pillow3 || target === pillow4) {
+                    pillowFluffing = true;
+                    pillowScale = 1.2;
+                }
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isFanOn) {
+                fanGroup.rotation.y += fanSpeed * 0.05;
+            }
+
+            if (bulbFalling) {
+                bulbFallVelocity += gravity;
+                bulb.position.y += bulbFallVelocity;
+                if (bulb.position.y <= floorY) {
+                    bulb.position.y = floorY;
+                    bulbFalling = false;
+                    bulbFallVelocity = 0;
+                    bulb.visible = false;
+                    bulbFragments.forEach(fragment => {
+                        fragment.visible = true;
+                    });
+                }
+            }
+
+            bulbFragments.forEach(fragment => {
+                if (fragment.visible) {
+                    fragment.position.add(fragment.velocity);
+                    fragment.velocity.y += gravity;
+                    if (fragment.position.y <= floorY) {
+                        fragment.position.y = floorY;
+                        fragment.velocity.y = 0;
+                        fragment.velocity.x *= 0.95;
+                        fragment.velocity.z *= 0.95;
+                    }
+                }
+            });
+
+            if (isRadioPlaying) {
+                radioRotation += 0.05;
+                radio.rotation.y = Math.sin(radioRotation) * 0.1;
+            }
+
+            if (ballBouncing) {
+                ballVelocityY += gravity/4;
+                ball.position.y += ballVelocityY;
+                ball.position.x += ballVelocityX;
+                ball.position.z += ballVelocityZ;
+
+                // Prevent ball from going too low
+                const minBallY = -roomHeight / 2 + 0.2;
+                if (ball.position.y <= minBallY) {
+                    ball.position.y = minBallY;
+                    ballVelocityY *= -0.7;
+                    ballVelocityX *= 0.95;
+                    ballVelocityZ *= 0.95;
+                    if (Math.abs(ballVelocityY) < 0.01) {
+                        ballBouncing = false;
+                        ballVelocityX = 0;
+                        ballVelocityZ = 0;
+                    } else {
+                        if (!bounceSound.isPlaying) {
+                           bounceSound.play();
+                        }
+                    }
+                }
+
+                // Bounce off walls
+                const ballRadius = 0.2;
+                const roomHalfWidth = roomWidth / 2 - ballRadius;
+                const roomHalfDepth = roomDepth / 2 - ballRadius;
+
+                if (ball.position.x > roomHalfWidth || ball.position.x < -roomHalfWidth) {
+                    ball.position.x = Math.sign(ball.position.x) * roomHalfWidth;
+                    ballVelocityX *= -0.8;
+                    if (!bounceSound.isPlaying) bounceSound.play();
+                }
+
+                if (ball.position.z > roomHalfDepth || ball.position.z < -roomDepth / 2 + ballRadius) {
+                    ball.position.z = ball.position.z > 0 ? roomHalfDepth : -roomDepth / 2 + ballRadius;
+                    ballVelocityZ *= -0.8;
+                   if (!bounceSound.isPlaying) bounceSound.play();
+                }
+
+                // Collision with bed
+                const bedBox = new THREE.Box3().setFromObject(bedFrame);
+                resolveSphereAABBCollision(ball.position, ballRadius, bedBox.min, bedBox.max);
+                
+                // Collision with table
+                const tableBox = new THREE.Box3().setFromObject(tableGroup);
+                resolveSphereAABBCollision(ball.position, ballRadius, tableBox.min, tableBox.max);
+            }
+
+            clockHandRotation += clockSpeed;
+            clockHand.rotation.z = clockHandRotation;
+            if (clockSpeedTimer > 0) {
+                clockSpeedTimer--;
+                if (clockSpeedTimer === 0) {
+                    clockSpeed = 0.02;
+                }
+            }
+
+            if (plantGrowing) {
+                const scaleDiff = plantTargetScale - plantScale;
+                if (Math.abs(scaleDiff) > 0.01) {
+                    plantScale += scaleDiff * 0.05;
+                    plant.scale.set(1, plantScale, 1);
+                } else {
+                    plantScale = plantTargetScale;
+                    plant.scale.set(1, plantScale, 1);
+                    plantGrowing = false;
+                }
+            }
+
+            if (isNotebookOpen && notebookOpenness < 1) {
+                notebookOpenness = Math.min(1, notebookOpenness + 0.05);
+                notebook.rotation.x = notebookOpenness * Math.PI / 2;
+            } else if (!isNotebookOpen && notebookOpenness > 0) {
+                notebookOpenness = Math.max(0, notebookOpenness - 0.05);
+                notebook.rotation.x = notebookOpenness * Math.PI / 2;
+            }
+
+            if (isPenSpinning) {
+                pen.rotation.y += penSpinSpeed;
+                penSpinSpeed *= 0.98;
+                if (penSpinSpeed < 0.01) {
+                    isPenSpinning = false;
+                    penSpinSpeed = 0;
+                }
+            }
+
+            if (pillowFluffing) {
+                const targetScale = 1.2;
+                if(pillowScale < targetScale) {
+                    pillowScale += 0.02;
+                } else {
+                    pillowScale -= 0.02;
+                }
+                const scaleValue = 1 + Math.sin((pillowScale-1)*Math.PI) * 0.2;
+                pillow1.scale.set(scaleValue, scaleValue, scaleValue);
+                pillow2.scale.set(scaleValue, scaleValue, scaleValue);
+                pillow3.scale.set(scaleValue, scaleValue, scaleValue);
+                pillow4.scale.set(scaleValue, scaleValue, scaleValue);
+                
+                if (pillowScale >= 1.2) {
+                    pillowFluffing = false;
+                    pillow1.scale.set(1, 1, 1);
+                    pillow2.scale.set(1, 1, 1);
+                    pillow3.scale.set(1, 1, 1);
+                    pillow4.scale.set(1, 1, 1);
+                    pillowScale = 1;
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
     </script>
 </body>
 </html>

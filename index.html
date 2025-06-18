@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,6 +159,12 @@
             text-decoration: underline;
         }
 
+        /* --- Feedback Section Specific Styles --- */
+        #feedback p {
+            font-size: 0.95em;
+            text-align: center;
+        }
+
         /* --- General Button & Link Button Styles --- */
         /* This targets general buttons, NOT the custom audio player ones specifically */
         button, .button-link {
@@ -185,8 +190,18 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
+
+        button:active, .button-link:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         body.dark-mode button:hover, body.dark-mode .button-link:hover {
             box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        body.dark-mode button:active, body.dark-mode .button-link:active {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         /* Specific Button Hover Styles */
@@ -212,8 +227,18 @@
             box-shadow: var(--box-shadow);
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
+
         #dark-mode-switch:hover {
             transform: scale(1.1);
+        }
+
+        #dark-mode-switch:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode #dark-mode-switch:active {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         /* --- Styles for Collapsible Audio Player --- */
@@ -353,7 +378,6 @@
         .volume-slider::-moz-range-thumb { width: 12px; height: 12px; }
 
         /* --- Explicit Dark Mode Colors for Custom Player --- */
-        /* Ensures dark mode overrides even with !important */
         body.dark-mode .custom-audio-player .time-display {
             color: var(--text-color);
         }
@@ -405,7 +429,8 @@
                 padding: 10px 20px; font-size: 0.95em; margin-top: 8px;
             }
             #discord .button-link, #jokes .button-link, #tools .button-link,
-            #os .button-link, #aistory .button-link, #bwap .button-link {
+            #os .button-link, #aistory .button-link, #bwap .button-link,
+            #bunnygame .button-link {
                 display: block; width: 100%; box-sizing: border-box;
             }
 
@@ -423,9 +448,6 @@
             #dark-mode-switch {
                 bottom: 15px; right: 15px; width: 45px; height: 45px; font-size: 20px;
             }
-
-
-            
         }
 
         /*
@@ -468,11 +490,9 @@
  * Add padding to the top of your main content area.
  * Adjust the '70px' value if you change the banner's height.
  */
-
     </style>
 </head>
 <body>
-   
     <div id="header">
         <a href="https://wilsoncissel.com" id="logo">
             <img src="https://wilsoncissel.com/pic.png" alt="Wilson Cissel Logo">
@@ -492,26 +512,29 @@
             <p>Looking for external websites I featured? Go <a href="https://wilsoncissel.com/websites">here</a>.</p>
         </section>
 
+        <section id="bunnygame">
+            <h1>(NEW!) Bunny on Mars</h1>
+            <p>Hop around the red planet as a bunny, collecting carrots and interacting with rovers in this quirky 3D adventure!</p>
+            <a href="https://bunnygame.wilsoncissel.com" target="_blank" class="button-link">
+                Play Bunny on Mars
+            </a>
+        </section>
 
         <section id="crypt">
-            <h1>(NEW!) Explore Cryptography</h1>
+            <h1>Explore Cryptography</h1>
             <p>Want to know the basic methods of cryptography? Enjoy this interactive guide.</p>
             <a href="https://cryptography.wilsoncissel.com" target="_blank" class="button-link">
                 Explore Cryptography
             </a>
         </section>
 
-        
         <section id="room">
-            <h1>(NEW!) Room</h1>
-            <p>Play with differnt elements in a room.</p>
+            <h1>Room</h1>
+            <p>Play with different elements in a room.</p>
             <a href="https://room.wilsoncissel.com" target="_blank" class="button-link">
                 Go to Room
             </a>
         </section>
-        
-
-
 
         <section id="bwap">
             <h1>BWAP - Button With A Personality</h1>
@@ -520,7 +543,6 @@
                 Play BWAP
             </a>
         </section>
-
 
         <section id="buttongame">
             <h1>Cityle</h1>
@@ -545,8 +567,6 @@
                 Explore AI Stories
             </a>
         </section>
-
-        
 
         <section id="discord">
             <h1>Discord Server</h1>
@@ -677,6 +697,11 @@
             <a href="https://docs.google.com/presentation/d/1UpMh0DA3kwEKvuEgxSv21RvPIi00MwgoupxiZFJXfIA/edit#slide=id.g8e19acfb6d_1_15" target="_blank" class="button-link">
                 Open Wilo OS 8
             </a>
+        </section>
+
+        <section id="feedback">
+            <h1>Feedback</h1>
+            <p>Do you have any feedback about any of my sites? Send an email to <a href="mailto:wilson@wilsoncissel.com">wilson@wilsoncissel.com</a>.</p>
         </section>
     </main>
 
